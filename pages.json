@@ -1,16 +1,37 @@
 {
 	"pages": [{
 			//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-			"path": "pages/new/new",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "最新",
+				"navigationBarTitleText": "超能聚合",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
-			"path": "pages/hot/hot",
+			"path": "pages/cloudPlay/cloudPlay",
 			"style": {
-				"navigationBarTitleText": "最热",
+				"navigationBarTitleText": "云播",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cloudSearch/cloudSearch",
+			"style": {
+				"navigationBarTitleText": "云搜",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/entertainment/entertainment",
+			"style": {
+				"navigationBarTitleText": "娱乐",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -87,28 +108,35 @@
 		"selectedColor": "#B13531",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
+		"selectedBackgroundColor": "#B13531",
 		"list": [{
-				"pagePath": "pages/new/new",
-				"iconPath": "static/index-0.png",
-				"selectedIconPath": "static/index-1.png",
-				"text": "最新"
+				"pagePath": "pages/index/index",
+				"iconPath": "static/icon/home_white.png",
+				"selectedIconPath": "static/icon/home.png",
+				"text": "首页"
 			},
 			{
-				"pagePath": "pages/hot/hot",
-				"iconPath": "static/hot-0.png",
-				"selectedIconPath": "static/hot-1.png",
-				"text": "推荐"
+				"pagePath": "pages/cloudPlay/cloudPlay",
+				"iconPath": "static/icon/play_white.png",
+				"selectedIconPath": "static/icon/play.png",
+				"text": "云播"
 			},
 			{
-				"pagePath": "pages/tag/tag",
-				"iconPath": "static/tag-0.png",
-				"selectedIconPath": "static/tag-1.png",
-				"text": "分类"
+				"pagePath": "pages/cloudSearch/cloudSearch",
+				"iconPath": "static/icon/search_white.png",
+				"selectedIconPath": "static/icon/search.png",
+				"text": "云搜"
 			},
 			{
-				"pagePath": "pages/center/center",
-				"iconPath": "static/center-0.png",
-				"selectedIconPath": "static/center-1.png",
+				"pagePath": "pages/entertainment/entertainment",
+				"iconPath": "static/icon/yule_white.png",
+				"selectedIconPath": "static/icon/yule.png",
+				"text": "娱乐"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/icon/my_white.png",
+				"selectedIconPath": "static/icon/my.png",
 				"text": "我的"
 			}
 		]
