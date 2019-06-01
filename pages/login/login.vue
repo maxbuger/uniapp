@@ -29,7 +29,9 @@
 				console.log("得到账号:"+ e.detail.value.nameValue + ';得到密码:' + e.detail.value.passwordValue)
 			},
 			register() {
-				console.log("前往注册页面")
+				uni.navigateTo({
+					url: '/pages/register/register'
+				});
 			}
 		}
 	}

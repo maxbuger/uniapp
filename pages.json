@@ -65,19 +65,26 @@
 			}
 		},
 		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
 			"path": "pages/about/about",
 			"style": {}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"color": "#444444",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "看图",
-		"navigationBarBackgroundColor": "#FF80AB",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#EFEFEF"
 	},
 	"tabBar": {
 		"color": "#444444",
-		"selectedColor": "#FF80AB",
+		"selectedColor": "#B13531",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
