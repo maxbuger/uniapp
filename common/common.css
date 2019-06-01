@@ -44,7 +44,7 @@
 }
 
 .card-num-view {
-	background-color: #FF80AB;
+	background-color: #B13531;
     line-height: 1;
     display: inline-block;
 	padding: 3px 6px;
@@ -68,7 +68,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 14upx 0;
-	color: #FF80AB;
+	color: #B13531;
 	margin: 20upx 20upx 20upx;
 	font-size: 30upx;
 	font-family: texticons;
@@ -193,7 +193,7 @@ view.tag,.tag {
 	height: 240upx;
 	padding: 20upx;
 	box-sizing: border-box;
-	background-color: #FF80AB;
+	background-color: #B13531;
 	flex-direction: row;
 	align-items: center;
 }
@@ -263,7 +263,7 @@ view.tag,.tag {
 	height: 90upx;
 	line-height: 90upx;
 	font-size: 34upx;
-	color: #FF80AB;
+	color: #B13531;
 	text-align: center;
 	font-family: texticons;
 	margin-right: 20upx;
@@ -325,7 +325,8 @@ view.tag,.tag {
 	line-height: 60upx;
 	font-size: 38upx;
 	color: #555;
-	text-align: left;
+	text-align: center;
+	white-space: nowrap;
 }
 
 .input {
@@ -352,15 +353,15 @@ button {
 }
 
 button.login {
-	background-color: #FF80AB;
+	background-color: #B13531;
 	color: #fff;
 }
 
 button.register {
 	margin-top: 30upx;
-	color: #FF80AB;
+	color: #B13531;
 	background-color: #fff;
-	border-color: #FF80AB;
+	border-color: #B13531;
 	border-width: 2upx;
 }
 
