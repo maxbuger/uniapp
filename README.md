@@ -1,2 +1,0 @@
-# uniapp
-uniapp
