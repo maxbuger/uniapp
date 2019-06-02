@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		<div class="swiperBox">
+	<view class="container uni-row">
+		<!-- <view class="swiperBox">
 			<view class="uni-padding-wrap">
 				<view class="page-section swiper">
 					<view class="page-section-spacing">
@@ -16,7 +16,18 @@
 					</view>
 				</view>
 			</view>
-		</div>
+		</view> -->
+		<view>sdfsdf</view>
+		<view class="inner">
+			<view class="inner_item">
+				<view class="inner_title">
+					<view class="innerT_tl">
+						
+					</view>
+					<view class="innerT_tr"></view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -68,5 +79,18 @@
 	.swiper{
 		height: 360upx;
 		width: 750upx;
+	}
+	.inner{
+		width: 750upx;
+	}
+	.inner_title{
+		width: 750upx;
+		display: flex;
+		height: 60upx;
+		justify-content: space-between;
+		background: #007AFF;
+	}
+	.innerT_tl,.innerT_tl{
+		height: 100%; 
 	}
 </style>

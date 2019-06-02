@@ -17,7 +17,7 @@
 
 	page,
 	view {
-		display: flex;
+		/* display: flex; */
 	}
 
 	page {
