@@ -36,6 +36,26 @@
 			}
 		},
 		{
+			"path": "pages/my/customer",
+			"style": {
+				"navigationBarTitleText": "VIP卡密购买",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/my/recharge",
+			"style": {
+				"navigationBarTitleText": "VIP续费",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/my/invite",
+			"style": {
+				"navigationBarTitleText": "邀请码",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/detail/detail",
 			"style": {
 				"navigationBarTitleText": "详情",
@@ -70,13 +90,6 @@
 			"style": {
 				"navigationBarTitleText": "专题",
 				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/center/center",
-			"style": {
-				"navigationBarTitleText": "个人中心",
-				"enablePullDownRefresh": false
 			}
 		},
 		{

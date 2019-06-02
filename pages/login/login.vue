@@ -32,50 +32,54 @@
 				var rule = [{
 					name: "phone",
 					checkType: "notnull",
-					errorMsg: "手机号码不能为空"
-				}, {
+					errorMsg: "用户名不能为空"
+				}, 
+				{
 					name: "phone",
 					checkType: "phoneno",
-					errorMsg: "请填写正确手机号码"
-				}, {
+					errorMsg: "请填写正确用户名"
+				}, 
+				{
 					name: "password",
 					checkType: "notnull",
 					errorMsg: "密码不能为空"
 				}];
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
+					// 获取设备信息
 					uni.getSystemInfo({
-						success: function(res) {
+						success: (res) => {
 							var params = {
 								username: formData.phone,
 								password: formData.password,
 								imei: res.imei
 							}
-							if (checkRes) {
-								uni.request({
-									url: this.$serverUrl + '/mobile/user/login', //仅为示例，并非真实接口地址。
-									method: 'POST',
-									data: params,
-									success: (res) => {
-										var data = res.data
-										if (data.code == 0) {
-											uni.navigateTo({
-												url: '/pages/index/index'
-											});
-										} else {
-											uni.showToast({
-												title: data.msg,
-												icon: "none"
-											});
-										}
+							uni.request({
+								url: this.$serverUrl + '/mobile/user/login',
+								method: 'POST',
+								data: params,
+								success: (res) => {
+									var data = res.data
+									if (data.code == 0) {
+										// 保存用户信息
+										window.sessionStorage.setItem('username', data.data.username)
+										window.sessionStorage.setItem('token', data.data.token)
+										window.sessionStorage.setItem('uid', data.data.uid)
+										window.sessionStorage.setItem('nickname_code', data.data.nickname_code)
+										window.sessionStorage.setItem('nickname', data.data.nickname)
+										window.sessionStorage.setItem('is_ever', data.data.is_ever)
+										window.sessionStorage.setItem('avatar', data.data.avatar)
+										uni.reLaunch({
+											url: '/pages/my/my'
+										});
+									} else {
+										uni.showToast({
+											title: data.msg,
+											icon: "none"
+										});
 									}
-								});
-							} else {
-								uni.showToast({
-									title: graceChecker.error,
-									icon: "none"
-								});
-							}
+								}
+							});
 						}
 					});
 				} else {

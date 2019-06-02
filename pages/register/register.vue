@@ -84,17 +84,19 @@
 					errorMsg: "邀请码不能为空"
 				}];
 				var checkRes = graceChecker.check(formData, rule);
-				uni.getSystemInfo({
-					success: function(res) {
-						var params = {
-							username: formData.phone,
-							password: formData.password,
-							referrer: formData.referrer,
-							imei: res.imei
-						}
-						if (checkRes) {
+				// 获取设备信息
+				if (checkRes) {
+					uni.getSystemInfo({
+						success: (res) => {
+							var params = {
+								username: formData.phone,
+								password: formData.password,
+								referrer: formData.referrer,
+								// imei: res.imei,
+								imei: 123
+							}
 							uni.request({
-								url: this.$serverUrl + '/mobile/user/register', //仅为示例，并非真实接口地址。
+								url: this.$serverUrl + '/mobile/user/register',
 								method: 'POST',
 								data: params,
 								success: (res) => {
@@ -111,14 +113,14 @@
 									}
 								}
 							});
-						} else {
-							uni.showToast({
-								title: graceChecker.error,
-								icon: "none"
-							});
 						}
-					}
-				});
+					});
+				} else {
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+				}
 			},
 			formReset: function(e) {
 				this.chosen = ''

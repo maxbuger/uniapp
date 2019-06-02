@@ -1,0 +1,22 @@
+@font-face {
+	font-family: myIcons;
+	font-weight: normal;
+	font-style: normal;
+	src: url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.eot');
+	src: url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.eot?#iefix') format('embedded-opentype'),
+		url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.woff2') format('woff2'),
+		url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.woff') format('woff'),
+		url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.ttf') format('truetype'),
+		url('https://at.alicdn.com/t/font_1223415_yzvycx1b0k.svg#iconfont') format('svg');
+}
+
+.my-icon {
+	width: 40upx;
+	height: 90upx;
+	line-height: 90upx;
+	font-size: 34upx;
+	color: #B13531;
+	text-align: center;
+	font-family: myIcons;
+	margin-right: 20upx;
+}

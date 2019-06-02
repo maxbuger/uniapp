@@ -1,7 +1,7 @@
 {
-    "name" : "看图",
+    "name" : "Mad",
     "appid" : "__UNI__6084411",
-    "description" : "图片App模版",
+    "description" : "Mad app",
     "transformPx" : false,
     "icons" : [
         {
@@ -27,7 +27,7 @@
         "template" : "template.h5.html",
         "router" : {
             "mode" : "hash",
-            "base" : "/demo/picture/website/"
+            "base" : ""
         }
     }
 }
