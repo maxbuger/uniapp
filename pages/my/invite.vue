@@ -56,7 +56,7 @@
 </script>
 <style>
 	.invite {
-		border-top: 4upx solid #C8C7CC;
+		border-top: 4upx solid #e5e5e5;
 		background-color: #ffffff;
 	}
 </style>

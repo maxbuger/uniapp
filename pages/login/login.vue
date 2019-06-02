@@ -30,20 +30,21 @@
 				//进行表单检查
 				var formData = e.detail.value;
 				var rule = [{
-					name: "phone",
-					checkType: "notnull",
-					errorMsg: "用户名不能为空"
-				}, 
-				{
-					name: "phone",
-					checkType: "phoneno",
-					errorMsg: "请填写正确用户名"
-				}, 
-				{
-					name: "password",
-					checkType: "notnull",
-					errorMsg: "密码不能为空"
-				}];
+						name: "phone",
+						checkType: "notnull",
+						errorMsg: "用户名不能为空"
+					},
+					{
+						name: "phone",
+						checkType: "phoneno",
+						errorMsg: "请填写正确用户名"
+					},
+					{
+						name: "password",
+						checkType: "notnull",
+						errorMsg: "密码不能为空"
+					}
+				];
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
 					// 获取设备信息
@@ -100,6 +101,20 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	page,
+	view {
+		display: flex;
+	}
 
+	page {
+		display: flex;
+		min-height: 100%;
+		background-color: #EFEFEF;
+	}
+
+	template {
+		display: flex;
+		flex: 1;
+	}
 </style>
