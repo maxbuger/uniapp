@@ -42,6 +42,11 @@
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 			<!-- #endif -->
+			<view class="center-list-item border-bottom" @click="checkUpdate">
+				<text class="my-icon">&#xe642;</text>
+				<text class="list-text">版本更新</text>
+				<text class="navigat-arrow">&#xe65e;</text>
+			</view>
 			<view class="center-list-item" @click="goAbout">
 				<text class="list-icon">&#xe603;</text>
 				<text class="list-text">关于</text>
@@ -206,8 +211,21 @@
 						});
 					}
 				})
-			}
+			},
 			// #endif
+			checkUpdate() {
+				uni.request({
+					url: this.$serverUrl + '/mobile/index/checkUpdate',
+					method: 'POST',
+					success: (res) => {
+						var data = res.data
+						uni.showToast({
+							title: data.msg,
+							icon: "none"
+						});
+					}
+				});
+			}
 		}
 	}
 </script>

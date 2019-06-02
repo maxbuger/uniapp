@@ -127,13 +127,28 @@
 		}
 	}
 </script>
+<style scoped>
+	page,
+	view {
+		display: flex;
+	}
 
-<style>
+	page {
+		display: flex;
+		min-height: 100%;
+		background-color: #EFEFEF;
+	}
+
+	template {
+		display: flex;
+		flex: 1;
+	}
+
 	.register-wrap {
 		padding: 50upx 0;
 	}
 
-	.register-wrap .label-view {
+	.label-view {
 		width: 160upx;
 	}
 </style>
