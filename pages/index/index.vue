@@ -5,19 +5,11 @@
 				<view class="page-section swiper">
 					<view class="page-section-spacing">
 						<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-							<swiper-item>
+							<swiper-item v-for="(item,index) in advList" :key="index">
 								<view class="swiper-item uni-bg-red">
-									<img src="../../static/pg1.jpg" alt="">
-								</view>
-							</swiper-item>
-							<swiper-item>
-								<view class="swiper-item uni-bg-green">
-									<img src="../../static/pg2.jpg" alt="">
-								</view>
-							</swiper-item>
-							<swiper-item>
-								<view class="swiper-item uni-bg-blue">
-									<img src="../../static/pg3.jpg" alt="">
+									<navigator :url="item.link">
+										<img :src="item.image" alt="">
+									</navigator>
 								</view>
 							</swiper-item>
 						</swiper>
@@ -35,7 +27,8 @@
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
-				duration: 500
+				duration: 500,
+				advList: []
 			}
 		},
 		onLoad() {
@@ -47,7 +40,12 @@
 					url: this.$serverUrl + '/mobile/index/index', //仅为示例，并非真实接口地址。
 					method: 'GET',
 					success: (res) => {
-						console.log(res.data);
+						console.log(res.data)
+						if (res.data.code === 0) {
+							this.advList = res.data.data.advList
+						} else {
+							console.log(res.data.msg)
+						}
 					}
 				});
 			}
