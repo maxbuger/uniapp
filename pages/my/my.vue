@@ -10,7 +10,8 @@
 		<view class="center-list">
 			<view class="center-list-item">
 				<text class="list-text">VIP到期时间</text>
-				<text class="vip-tip">会员已到期</text>
+				<text class="vip-tip" v-if="isEnd==1">会员已到期</text>
+				<text class="vip-tip" v-else>{{vipTime}}</text>
 			</view>
 		</view>
 		<view class="center-list">
@@ -34,11 +35,13 @@
 				<text class="list-text">推广好友</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item border-bottom">
+			<!-- #ifdef APP-PLUS -->
+			<view class="center-list-item border-bottom" @click="share">
 				<text class="my-icon">&#xe627;</text>
 				<text class="list-text">分享好友</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
+			<!-- #endif -->
 			<view class="center-list-item" @click="goAbout">
 				<text class="list-icon">&#xe603;</text>
 				<text class="list-text">关于</text>
@@ -55,13 +58,67 @@
 				nickname: window.sessionStorage.getItem('nickname'),
 				avatar: window.sessionStorage.getItem('avatar'),
 				serverPost: null,
+				isEnd: window.sessionStorage.getItem('is_end'), // 等于1过期
+				vipTime: '',
+				providerList: [],
 				avatarUrl: '/static/logo.png',
 			}
 		},
 		onLoad(e) {
-			this.avatar = this.$serverUrl + window.sessionStorage.getItem('avatar')
+			if (window.sessionStorage.getItem('avatar')) {
+				this.avatar = this.$serverUrl + window.sessionStorage.getItem('avatar')
+			}
+			// 处理vip时间
+			if (window.sessionStorage.getItem('end_time')) {
+				this.vipTime = this.timetrans(Number(window.sessionStorage.getItem('end_time')))
+			}
+			// #ifdef APP-PLUS
+			uni.getProvider({
+				service: 'share',
+				success: (e) => {
+					let data = [];
+					for (let i = 0; i < e.provider.length; i++) {
+						switch (e.provider[i]) {
+							case 'weixin':
+								data.push({
+									name: '分享到微信好友',
+									id: 'weixin'
+								})
+								data.push({
+									name: '分享到微信朋友圈',
+									id: 'weixin',
+									type: 'WXSenceTimeline'
+								})
+								break;
+							case 'qq':
+								data.push({
+									name: '分享到QQ',
+									id: 'qq'
+								})
+								break;
+							default:
+								break;
+						}
+					}
+					this.providerList = data;
+				},
+				fail: (e) => {
+					console.log('获取登录通道失败' + JSON.stringify(e));
+				}
+			});
+			// #endif
 		},
 		methods: {
+			timetrans(date) {
+				var date = new Date(date * 1000) // 如果date为13位不需要乘1000
+				var Y = date.getFullYear() + '-'
+				var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+				var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' '
+				var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
+				var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':'
+				var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+				return Y + M + D + h + m + s;
+			},
 			goLogin() {
 				if (!this.nickname) {
 					uni.navigateTo({
@@ -76,22 +133,81 @@
 			},
 			// VIP卡密购买
 			goCustomer() {
-				uni.navigateTo({
-					url: '/pages/my/customer'
-				});
+				if (this.nickname) {
+					uni.navigateTo({
+						url: '/pages/my/customer'
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						icon: "none"
+					});
+				}
 			},
 			// VIP续费
 			goRecharge() {
-				uni.navigateTo({
-					url: '/pages/my/recharge'
-				});
+				if (this.nickname) {
+					uni.navigateTo({
+						url: '/pages/my/recharge'
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						icon: "none"
+					});
+				}
 			},
 			// 邀请码
 			goInvite() {
-				uni.navigateTo({
-					url: '/pages/my/invite'
-				});
+				if (this.nickname) {
+					uni.navigateTo({
+						url: '/pages/my/invite'
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						icon: "none"
+					});
+				}
+			},
+			// #ifdef APP-PLUS
+			share(e) {
+				if (this.providerList.length === 0) {
+					uni.showModal({
+						title: '当前环境无分享渠道!',
+						showCancel: false
+					})
+					return;
+				}
+				let itemList = this.providerList.map(function(value) {
+					return value.name
+				})
+				uni.showActionSheet({
+					itemList: itemList,
+					success: (res) => {
+						uni.share({
+							provider: this.providerList[res.tapIndex].id,
+							scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ?
+								'WXSenceTimeline' : "WXSceneSession",
+							type: 0,
+							title: '分享',
+							summary: '',
+							imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/nav_menu/8.jpg',
+							href: "https://m3w.cn/uniapp",
+							success: (res) => {
+								console.log("success:" + JSON.stringify(res));
+							},
+							fail: (e) => {
+								uni.showModal({
+									content: e.errMsg,
+									showCancel: false
+								})
+							}
+						});
+					}
+				})
 			}
+			// #endif
 		}
 	}
 </script>
@@ -99,6 +215,22 @@
 	@import '../../static/style/myIcon.css'
 </style>
 <style>
+	page,
+	view {
+		display: flex;
+	}
+
+	page {
+		display: flex;
+		min-height: 100%;
+		background-color: #EFEFEF;
+	}
+
+	template {
+		display: flex;
+		flex: 1;
+	}
+
 	.vip-tip {
 		height: 90upx;
 		line-height: 90upx;

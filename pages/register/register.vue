@@ -92,8 +92,7 @@
 								username: formData.phone,
 								password: formData.password,
 								referrer: formData.referrer,
-								// imei: res.imei,
-								imei: 123
+								imei: res.imei
 							}
 							uni.request({
 								url: this.$serverUrl + '/mobile/user/register',

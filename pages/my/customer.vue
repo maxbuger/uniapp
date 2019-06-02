@@ -1,13 +1,28 @@
 <template>
-	<view>
-		<view class="button-view" v-if="btnBol">
-			<button type="default" class="login" hover-class="hover" @click="customer">VIP卡密购买</button>
+	<view class="center customer">
+		<view class="center-list">
+			<view class="center-list-item list-item">说明：</view>
+			<view class="center-list-item list-item">
+				<text>{{info.desc}}</text>
+			</view>
 		</view>
-		<view class="center customer" v-if="!btnBol">
-			<view class="center-list">
-				<view class="center-list-item">
-					{{info.contact}}
-				</view>
+		<view class="center-list">
+			<view class="center-list-item list-item">
+				<button type="default" class="login" hover-class="hover" @click="navito(info.forever_url)">永久VIP</button>
+			</view>
+			<view class="center-list-item list-item">
+				<button type="default" class="login" hover-class="hover" @click="navito(info.year_url)">年度VIP</button>
+			</view>
+			<view class="center-list-item list-item">
+				<button type="default" class="login" hover-class="hover" :src="info.season_url">季节VIP</button>
+			</view>
+			<view class="center-list-item list-item">
+				<button type="default" class="login" hover-class="hover" :src="info.month_url">月度VIP</button>
+			</view>
+		</view>
+		<view class="center-list">
+			<view class="center-list-item list-item">
+				<text>{{info.contact}}</text>
 			</view>
 		</view>
 	</view>
@@ -17,9 +32,11 @@
 	export default {
 		data() {
 			return {
-				info: {},
-				btnBol: true
+				info: {}
 			};
+		},
+		onLoad() {
+			this.customer()
 		},
 		methods: {
 			customer() {
@@ -33,10 +50,8 @@
 					success: (res) => {
 						var data = res.data
 						if (data.code == 0) {
-							this.btnBol = false
 							this.info = data.data
 						} else {
-							this.btnBol = true
 							uni.showToast({
 								title: data.msg,
 								icon: "none"
@@ -44,13 +59,25 @@
 						}
 					}
 				});
+			},
+			navito(url) {
+				window.open(url)
 			}
 		}
 	}
 </script>
 <style>
 	.customer {
-		border-top:2upx solid #555;
+		border-top: 4upx solid #C8C7CC;
 		background-color: #ffffff;
+	}
+
+	.list-item {
+		height: auto !important;
+		margin: 20upx 0;
+	}
+
+	.item-btn {
+		margin-right: 10upx;
 	}
 </style>
