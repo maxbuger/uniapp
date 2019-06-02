@@ -1,31 +1,36 @@
 <template>
 	<view class="wrap">
-		<wuc-tab :tab-list="tabList3" textFlex :tabCur.sync="TabCur3" tab-class="text-center text-black bg-white tab-wrap"
-		 select-class="text-orange"></wuc-tab>
-		<swiper :current="TabCur3" class="swiper" duration="300" :circular="true" indicator-color="rgba(255,255,255,0)"
+		<wuc-tab :tab-list="tabList3" textFlex :tabCur.sync="tabCur" tab-class="text-center bg-white tab-wrap" select-class="text-orange"></wuc-tab>
+		<swiper :current="tabCur" class="swiper" duration="500" :circular="true" indicator-color="rgba(255,255,255,0)"
 		 indicator-active-color="rgba(255,255,255,0)" @change="swiperChange3">
+			<!-- 小说 -->
 			<swiper-item class="swiper-item">
-				<view v-for="(nove,noveIndex) in novelList" :key="noveIndex" class="bg-white text-center text-black view-content">
-					<view>
+				<view v-for="(nove,noveIndex) in novelList" :key="noveIndex" class="bg-white text-center text-black view-content"
+				 @click="getCateId(0,nove.id)">
+					<view class="image">
 						<img :src="nove.image" alt="">
 					</view>
-					<view>{{nove.title}}</view>
+					<view class="title">{{nove.title}}</view>
 				</view>
 			</swiper-item>
+			<!-- vip视频 -->
 			<swiper-item class="swiper-item">
-				<view v-for="(video,videoIndex) in videoList" :key="videoIndex" class="bg-white text-center text-black view-content">
-					<view>
-						<img :src="video.image" alt="">
-					</view>
-					<view>{{video.title}}</view>
-				</view>
-			</swiper-item>
-			<swiper-item class="swiper-item">
-				<view v-for="(vip,vipIndex) in vipCateList" :key="vipIndex" class="bg-white text-center text-black view-content">
-						<view>
+				<view v-for="(vip,vipIndex) in vipCateList" :key="vipIndex" class="bg-white text-center text-black view-content"
+				 @click="openVipLink(vip.link)">
+					<view class="image">
 						<img :src="vip.image" alt="">
 					</view>
-					<view>{{vip.title}}</view>
+					<view class="title">{{vip.title}}</view>
+				</view>
+			</swiper-item>
+			<!-- 视频 -->
+			<swiper-item class="swiper-item">
+				<view v-for="(video,videoIndex) in videoList" :key="videoIndex" class="bg-white text-center text-black view-content"
+				 @click="getCateId(2,video.id)">
+					<view class="image">
+						<img :src="video.image" alt="">
+					</view>
+					<view class="title">{{video.title}}</view>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -47,20 +52,10 @@
 				}, {
 					name: '视频'
 				}],
-				novelList: [{
-					id: 1,
-					image: "http://47.104.128.121:8542/uploads/adv/20190326/4863650c2daefbdf1c888ca81705932b.png",
-					sort: 0,
-					title: "校园青春"
-				}, {
-					id: 1,
-					image: "http://47.104.128.121:8542/uploads/adv/20190326/4863650c2daefbdf1c888ca81705932b.png",
-					sort: 0,
-					title: "校园青春"
-				}],
-				videoList:[],
-				vipCateList:[],
-				TabCur3: 0,
+				novelList: [], // 小说
+				videoList: [], // 视频
+				vipCateList: [], // vip视频
+				tabCur: 0,
 			};
 		},
 		components: {
@@ -83,35 +78,46 @@
 				return obj2style(style);
 			}
 		},
+		onReady() {
+			this.queryChange(this.tabCur)
+		},
 		methods: {
 			tabChange(index) {
 				this.TabCur = index;
-				if (index == 0) {
-					this.novelListFn()
-				}else if(index == 1){
-					this.videoListFn()}else if(index == 1){
-					this.videoListFn()}
+				this.queryChange(index)
 			},
 			swiperChange3(e) {
 				let {
 					current
 				} = e.target;
-				this.TabCur3 = current;
-				console.log(current)
-				if (current == 0) {
-					this.novelListFn()
+				this.tabCur = current;
+				this.queryChange(current)
+			},
+			queryChange(index) {
+				var url = ''
+				if (index == 0) {
+					// 小说
+					url = '/mobile/Novel/cateList'
+				} else if (index == 1) {
+					// vip视频
+					url = '/mobile/Tv/vipCate'
+				} else if (index == 2) {
+					// 视频
+					url = '/mobile/Video/cateList'
 				}
-			},
-			// 接口对接
-			novelListFn() {
 				uni.request({
-					url: this.$serverUrl + '/mobile/Novel/cateList',
+					url: this.$serverUrl + url,
 					method: 'GET',
 					success: (res) => {
 						var data = res.data
 						if (data.code == 0) {
-							this.cateList = data.data
-							console.log(this.cateList)
+							if (index == 0) {
+								this.novelList = data.data
+							} else if (index == 1) {
+								this.vipCateList = data.data
+							} else if (index == 2) {
+								this.videoList = data.data
+							}
 						} else {
 							uni.showToast({
 								title: data.msg,
@@ -121,34 +127,25 @@
 					}
 				})
 			},
-			// 接口对接
-			videoListFn() {
+			openVipLink(link) {
+				window.open(link)
+			},
+			getCateId(index, cateId) {
+				var url = ''
+				if (index == 0) {
+					// 小说详情获取
+					url = '/mobile/Novel/index?cate_id=' + cateId
+				} else if (index == 2) {
+					// 视频详情获取
+					url = '/mobile/Video/index?cate_id=' + cateId
+				}
 				uni.request({
-					url: this.$serverUrl + '/mobile/Video/cateList',
+					url: this.$serverUrl + url,
 					method: 'GET',
 					success: (res) => {
 						var data = res.data
 						if (data.code == 0) {
-							this.cateList = data.data
-							console.log(this.cateList)
-						} else {
-							uni.showToast({
-								title: data.msg,
-								icon: "none"
-							});
-						}
-					}
-				})
-			},// 接口对接
-			vipCateFn() {
-				uni.request({
-					url: this.$serverUrl + '/mobile/Tv/vipCate',
-					method: 'GET',
-					success: (res) => {
-						var data = res.data
-						if (data.code == 0) {
-							this.cateList = data.data
-							console.log(this.cateList)
+							console.log(data)
 						} else {
 							uni.showToast({
 								title: data.msg,
@@ -202,17 +199,39 @@
 	}
 
 	.swiper-item {
-		height: 400upx !important;
 		display: flex;
-		justify-content: space-between;
+		flex-wrap: wrap;
+		overflow-y: auto;
 	}
 
 	.view-content {
-		flex: 1;
+		width: 46vw;
+		height: 350upx;
+		margin: 10upx 2vw;
 		display: flex;
+		border-radius: 6upx;
+		flex-direction: column;
+	}
+
+	.image {
+		flex: 1;
+		padding: 10upx;
+		width: 100%;
+		position: relative;
+	}
+
+	.image img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.title {
+		width: 100%;
+		height: 60upx;
 		justify-content: center;
-		margin: 10upx;
-		padding: 20upx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.cu-bar {

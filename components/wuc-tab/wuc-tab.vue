@@ -124,7 +124,7 @@ swiper {
     background-color: #0081ff;
 }
 .text-orange{
-  color: #f37b1d
+  color: #B13531;
 }
 
 .text-xl {
