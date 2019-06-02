@@ -19,13 +19,15 @@
 			</view>
 		</view>
 		<view class="videoList">
-			<view class="vItem" v-for="(item,index) in videoList" :key="index">
-				<video src="item.play_url" :poster="item.img"></video>
-				<view class="pNum">
-					<view class="pIco"></view>
-					<view class="pTotal"></view>
+			<view class="vItemBox" v-for="(item,index) in videoList" :key="index">
+				<view class="vItem" @click="toPlayer(item)">
+					<img :src="item.img" alt="">
+					<view class="pNum">
+						<view class="pIco"></view>
+						<view class="pTotal">{{Math.floor(Math.random()*300 + 300)}}</view>
+					</view>
+					<view class="pDes">{{item.title}}</view>
 				</view>
-				<view class="pDes"></view>
 			</view>
 		</view>
 	</view>
@@ -67,6 +69,11 @@
 					}
 				});
 			},
+			toPlayer(params){
+				uni.navigateTo({
+					url: 'player?play_url='+params.play_url+'&id='+params.id
+				});
+			}
 		}
 	}
 </script>
@@ -150,26 +157,60 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
+	.vItemBox{
+		width: 355upx;
+		padding-right: 10upx;
+		box-sizing: border-box;
+	}
 	.vItem{
 		position: relative;
-		width: 355upx;
 		height: 280upx;
-		box-sizing: border-box;
-		padding-right: 10upx;
 		margin-bottom: 20upx;
+		border-radius: 15upx;
+		overflow: hidden;
 	}
-	.vItem:nth-child(2n){
+	.vItemBox:nth-child(2n){
 		padding-right: 0upx;
 		padding-left: 10upx;
 	}
-	.vItem video{
+	.vItem img{
 		height: 100%;
 		width: 100%;
+		object-fit: cover;
 	}
 	.pNum{
 		position: absolute;
+		top: 15upx;
+		right: 15upx;
+		padding: 0 20upx;
+		height: 40upx;
+		display: flex;
+		align-items: center;
+		background-color: rgba(0,0,0,0.2);
+		border-radius: 20upx;
+	}
+	.pIco{
+		height: 40upx;
+		width: 40upx;
+		background: url(../../static/icon/we.png) no-repeat center center;
+		background-size: 100% 100%;
+		margin-right: 10upx;
+	}
+	.pTotal{
+		font-size: 20upx;
+		color: #fff;
 	}
 	.pDes{
 		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 40upx;
+		font-size: 24upx;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		background-color: rgba(0,0,0,0.2);
+		padding: 0 15upx;
 	}
 </style>
