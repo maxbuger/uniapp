@@ -27,6 +27,16 @@
 				"navigationBarTitleText": "云搜",
 				"enablePullDownRefresh": true
 			}
+		}, {
+			"path": "pages/list/list",
+			"style": {
+				"navigationBarTitleText": "列表",
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
 		},
 		{
 			"path": "pages/entertainment/entertainment",
@@ -40,27 +50,27 @@
 			"style": {
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": true,
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/my/customer",
 			"style": {
 				"navigationBarTitleText": "VIP卡密购买",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/my/recharge",
 			"style": {
 				"navigationBarTitleText": "VIP续费",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/my/invite",
 			"style": {
 				"navigationBarTitleText": "邀请码",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -153,7 +163,7 @@
 				"iconPath": "static/icon/yule_white.png",
 				"selectedIconPath": "static/icon/yule.png",
 				"text": "娱乐"
- 			},
+			},
 			{
 				"pagePath": "pages/my/my",
 				"iconPath": "static/icon/my_white.png",

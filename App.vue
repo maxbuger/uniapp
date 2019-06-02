@@ -8,6 +8,25 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		onReady() {
+			this.startAdv()
+		},
+		methods: {
+			// /mobile/index/startAdv
+			startAdv() {
+				uni.request({
+					url: this.$serverUrl + '/mobile/index/startAdv',
+					method: 'POST',
+					success: (res) => {
+						var data = res.data
+						uni.showToast({
+							title: data.msg,
+							icon: "none"
+						});
+					}
+				});
+			}
 		}
 	}
 </script>

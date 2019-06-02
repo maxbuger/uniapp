@@ -6,7 +6,7 @@
 			<!-- 小说 -->
 			<swiper-item class="swiper-item">
 				<view v-for="(nove,noveIndex) in novelList" :key="noveIndex" class="bg-white text-center text-black view-content"
-				 @click="getCateId(0,nove.id)">
+				 @click="getCateId(0,nove.id,nove.title)">
 					<view class="image">
 						<img :src="nove.image" alt="">
 					</view>
@@ -26,7 +26,7 @@
 			<!-- 视频 -->
 			<swiper-item class="swiper-item">
 				<view v-for="(video,videoIndex) in videoList" :key="videoIndex" class="bg-white text-center text-black view-content"
-				 @click="getCateId(2,video.id)">
+				 @click="getCateId(2,video.id,video.title)">
 					<view class="image">
 						<img :src="video.image" alt="">
 					</view>
@@ -130,30 +130,10 @@
 			openVipLink(link) {
 				window.open(link)
 			},
-			getCateId(index, cateId) {
-				var url = ''
-				if (index == 0) {
-					// 小说详情获取
-					url = '/mobile/Novel/index?cate_id=' + cateId
-				} else if (index == 2) {
-					// 视频详情获取
-					url = '/mobile/Video/index?cate_id=' + cateId
-				}
-				uni.request({
-					url: this.$serverUrl + url,
-					method: 'GET',
-					success: (res) => {
-						var data = res.data
-						if (data.code == 0) {
-							console.log(data)
-						} else {
-							uni.showToast({
-								title: data.msg,
-								icon: "none"
-							});
-						}
-					}
-				})
+			getCateId(type, cateId,title) {
+				uni.navigateTo({
+					url: '/pages/list/list?type=' + type + '&cateId=' + cateId+'&title='+title
+				});
 			}
 		}
 	}
