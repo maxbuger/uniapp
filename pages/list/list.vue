@@ -1,133 +1,173 @@
 <template>
-	<mescroll-uni :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @init="mescrollInit">
-	</mescroll-uni>
+	<view class="list-wrap">
+		<block v-for="item in lists" :key="item.id" @click="goDetail(item)">
+			<view class="row">
+				<view class="card">
+					<!-- <image class="card-img card-list2-img" :src="item.img_src"></image> -->
+					<text class="card-num-view card-list2-num-view">{{item.img_num}}P</text>
+					<view class="card-bottm column">
+						<view class="car-title-view column">
+							<text class="card-title card-list2-title">{{item.cate_name}} </text>
+						</view>
+						<view class="car-title-view column">
+							<text class="card-title card-list2-title">{{item.title}} </text>
+						</view>
+						<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
+					</view>
+				</view>
+			</view>
+		</block>
+		<text class="loadMore" v-if="page < count">加载中...</text>
+	</view>
 </template>
+
 <script>
-	// 引入mescroll-uni组件
-	import MescrollUni from "@/components/wenju-mescroll/mescroll-uni.vue";
+	let keys = 0;
 	export default {
-		components: {
-			MescrollUni
-		},
 		data() {
 			return {
-				type: 0,
-				cateId: 0,
-				mescroll: null, //mescroll实例对象
-				// 下拉刷新的配置
-				downOption: {
-					use: true, // 是否启用下拉刷新; 默认true
-					auto: true, // 是否在初始化完毕之后自动执行下拉刷新的回调; 默认true
-				},
-				// 上拉加载的配置
-				upOption: {
-					use: true, // 是否启用上拉加载; 默认true
-					auto: true, // 是否在初始化完毕之后自动执行上拉加载的回调; 默认true
-					isLock: false, // 是否锁定上拉加载 (可用于不触发upCallback,只保留回到顶部按钮的场景)
-					page: {
-						num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
-						size: 10 // 每页数据的数量,默认10
-					},
-					noMoreSize: 3, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
-					empty: {
-						tip: '暂无相关数据'
-					}
-				},
-				// 列表数据
-				dataList: []
+				refreshing: false,
+				cateId: -1,
+				type: -1,
+				lists: [],
+				page: 1,
+				count: 0
 			}
 		},
 		onLoad(e) {
 			this.cateId = e.cateId
 			this.type = e.type
+			uni.setNavigationBarTitle({
+				title: e.title
+			});
+			// 防止app里由于渲染导致转场动画卡顿
+			setTimeout(() => {
+				this.getData();
+			}, 300);
+			uni.getProvider({
+				service: 'share',
+				success: (e) => {
+					let data = [];
+					for (let i = 0; i < e.provider.length; i++) {
+						switch (e.provider[i]) {
+							case 'weixin':
+								data.push({
+									name: '分享到微信好友',
+									id: 'weixin'
+								});
+								data.push({
+									name: '分享到微信朋友圈',
+									id: 'weixin',
+									type: 'WXSenceTimeline'
+								});
+								break;
+							case 'qq':
+								data.push({
+									name: '分享到QQ',
+									id: 'qq'
+								});
+								break;
+							default:
+								break;
+						}
+					}
+					this.providerList = data;
+				},
+				fail: (e) => {
+					console.log('获取登录通道失败', e);
+				}
+			});
 		},
-		// 必须注册滚动到底部的事件,使上拉加载生效
+		onPullDownRefresh() {
+			this.refreshing = true;
+			this.getData();
+		},
 		onReachBottom() {
-			this.mescroll && this.mescroll.onReachBottom();
-		},
-		// 必须注册列表滚动事件,使下拉刷新生效
-		onPageScroll(e) {
-			this.mescroll && this.mescroll.onPageScroll(e);
+			console.log('上拉加载刷新');
+			if (this.page > this.count) {
+				this.loadMoreText = '没有更多了'
+				return;
+			}
+			this.getData();
 		},
 		methods: {
-			// mescroll组件初始化的回调,可获取到mescroll对象
-			mescrollInit(mescroll) {
-				this.mescroll = mescroll;
-			},
-			/*下拉刷新的回调, 有三种处理方式: */
-			downCallback(mescroll) {
-				console.log(mescroll)
-				// 此时mescroll会携带page的参数:
-				let pageNum = mescroll.num; // 页码, 默认从1开始
-				let pageSize = mescroll.size; // 页长, 默认每页10条
+			getData() {
 				var url = ''
-				if (this.type) {
-					// 小说详情获取
-					url = '/mobile/Novel/index?cate_id=' + this.cateId + '&limit=' + pageSize + '&page=' + pageNum
-				} else if (index == 2) {
-					// 视频详情获取
-					url = '/mobile/Video/index?cate_id=' + this.cateId + '&limit=' + pageSize + '&page=' + this.page
+				if (this.type == 0) {
+					url = '/mobile/Novel/index'
+				} else if (this.type == 2) {
+					url = '/mobile/Video/index'
 				}
-				// 第1种: 请求具体接口
 				uni.request({
-					url: this.$serverUrl + url,
-					success: () => {
-						// 成功隐藏下拉加载状态
-						mescroll.endSuccess()
-					},
-					fail: () => {
-						// 失败隐藏下拉加载状态
-						mescroll.endErr()
+					url: this.$serverUrl + url + '?cate_id=' + this.cateId + 'page=' + (this.refreshing ? 1 : this.page) +
+						'&limit=10',
+					success: (ret) => {
+						var data = ret.data.data
+						this.count = data.count
+						if (ret.statusCode !== 200) {
+							console.log('请求失败:', ret)
+						} else {
+							if (this.refreshing && data.lists[0].id === (this.lists && this.lists[0].id)) {
+								uni.showToast({
+									title: '已经最新',
+									icon: 'none',
+								});
+								this.refreshing = false;
+								uni.stopPullDownRefresh();
+								return;
+							}
+							if (this.refreshing) {
+								this.refreshing = false;
+								uni.stopPullDownRefresh()
+								this.lists = data.lists;
+								this.page = 2;
+							} else {
+								this.lists = this.lists.concat(data.lists);
+								this.page += 1;
+							}
+							this.page += 1;
+						}
 					}
-				})
-				// 第2种: 下拉刷新和上拉加载调同样的接口, 那以上请求可删, 直接用mescroll.resetUpScroll()代替
-				mescroll.resetUpScroll(); // 重置列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
-				// 第3种: 下拉刷新什么也不处理, 可直接调用或者延时一会调用 mescroll.endSuccess() 结束即可
-				mescroll.endSuccess()
+				});
 			},
-			/*上拉加载的回调*/
-			upCallback(mescroll) {
-				console.log(mescroll)
-				// 此时mescroll会携带page的参数:
-				let pageNum = mescroll.num; // 页码, 默认从1开始
-				let pageSize = mescroll.size; // 页长, 默认每页10条
-				var url = ''
-				if (this.type) {
-					// 小说详情获取
-					url = '/mobile/Novel/index?cate_id=' + this.cateId + '&limit=' + pageSize + '&page=' + pageNum
-				} else if (index == 2) {
-					// 视频详情获取
-					url = '/mobile/Video/index?cate_id=' + this.cateId + '&limit=' + pageSize + '&page=' + this.page
+			goDetail(e) {
+				uni.navigateTo({
+					url: '../detail/detail?data=' + encodeURIComponent(JSON.stringify(e))
+				})
+			},
+			share(e) {
+				if (this.providerList.length === 0) {
+					uni.showModal({
+						title: '当前环境无分享渠道!',
+						showCancel: false
+					})
+					return;
 				}
-				uni.request({
-					url: this.$serverUrl + url,
-					success: (data) => {
-						// 接口返回的当前页数据列表 (数组)
-						let curPageData = data.xxx;
-						// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-						let totalPage = data.xxx;
-						// 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
-						let totalSize = data.xxx;
-						// 接口返回的是否有下一页 (true/false)
-						let hasNext = data.xxx;
-
-						// 成功隐藏下拉加载状态
-						//方法一(推荐): 后台接口有返回列表的总页数 totalPage
-						mescroll.endByPage(curPageData.length, totalPage);
-
-						//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-						//mescroll.endBySize(curPageData.length, totalSize);
-
-						//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-						//mescroll.endSuccess(curPageData.length, hasNext);
-
-						//设置列表数据
-						if (mescroll.num == 1) this.dataList = []; //如果是第一页需手动制空列表
-						this.dataList = this.dataList.concat(curPageData); //追加新数据
-					},
-					fail: () => {
-						// 失败隐藏下拉加载状态
-						mescroll.endErr()
+				let itemList = this.providerList.map(function(value) {
+					return value.name
+				})
+				uni.showActionSheet({
+					itemList: itemList,
+					success: (res) => {
+						uni.share({
+							provider: this.providerList[res.tapIndex].id,
+							scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ?
+								'WXSenceTimeline' : 'WXSceneSession',
+							type: 0,
+							title: 'uni-app模版',
+							summary: e.title,
+							imageUrl: e.img_src,
+							href: 'https://uniapp.dcloud.io',
+							success: (res) => {
+								console.log('success:' + JSON.stringify(res));
+							},
+							fail: (e) => {
+								uni.showModal({
+									content: e.errMsg,
+									showCancel: false
+								})
+							}
+						});
 					}
 				})
 			}
@@ -135,6 +175,38 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	page,
+	view {
+		display: flex;
+	}
 
+	page {
+		display: flex;
+		min-height: 100%;
+		background-color: #EFEFEF;
+	}
+
+	template {
+		display: flex;
+		flex: 1;
+	}
+
+	.list-wrap {
+		flex: 1;
+		width: 750upx;
+		flex-direction: column;
+	}
+
+	.card {
+		flex: 1;
+		margin: 5px !important;
+	}
+
+	.card-bottm {
+		justify-content: flex-start !important;
+	}
+	.car-title-view {
+		width: 100%;
+	}
 </style>

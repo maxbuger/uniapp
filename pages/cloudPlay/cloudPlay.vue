@@ -8,7 +8,7 @@
 				<view v-for="(nove,noveIndex) in novelList" :key="noveIndex" class="bg-white text-center text-black view-content"
 				 @click="getCateId(0,nove.id,nove.title)">
 					<view class="image">
-						<img :src="nove.image" alt="">
+						<image :src="nove.image" alt=""></image>
 					</view>
 					<view class="title">{{nove.title}}</view>
 				</view>
@@ -18,7 +18,7 @@
 				<view v-for="(vip,vipIndex) in vipCateList" :key="vipIndex" class="bg-white text-center text-black view-content"
 				 @click="openVipLink(vip.link)">
 					<view class="image">
-						<img :src="vip.image" alt="">
+						<image :src="vip.image" alt=""></image>
 					</view>
 					<view class="title">{{vip.title}}</view>
 				</view>
@@ -28,7 +28,7 @@
 				<view v-for="(video,videoIndex) in videoList" :key="videoIndex" class="bg-white text-center text-black view-content"
 				 @click="getCateId(2,video.id,video.title)">
 					<view class="image">
-						<img :src="video.image" alt="">
+						<image :src="video.image" alt=""></image>
 					</view>
 					<view class="title">{{video.title}}</view>
 				</view>
@@ -79,29 +79,36 @@
 			}
 		},
 		onReady() {
+			uni.showLoading({
+				title: '加载中'
+			});
 			this.queryChange(this.tabCur)
+		},
+		onPullDownRefresh() {
+			this.refreshing = true;
+			this.queryChange()
 		},
 		methods: {
 			tabChange(index) {
 				this.TabCur = index;
-				this.queryChange(index)
+				this.queryChange()
 			},
 			swiperChange3(e) {
 				let {
 					current
 				} = e.target;
 				this.tabCur = current;
-				this.queryChange(current)
+				this.queryChange()
 			},
-			queryChange(index) {
+			queryChange() {
 				var url = ''
-				if (index == 0) {
+				if (this.tabCur == 0) {
 					// 小说
 					url = '/mobile/Novel/cateList'
-				} else if (index == 1) {
+				} else if (this.tabCur == 1) {
 					// vip视频
 					url = '/mobile/Tv/vipCate'
-				} else if (index == 2) {
+				} else if (this.tabCur == 2) {
 					// 视频
 					url = '/mobile/Video/cateList'
 				}
@@ -111,11 +118,11 @@
 					success: (res) => {
 						var data = res.data
 						if (data.code == 0) {
-							if (index == 0) {
+							if (this.tabCur == 0) {
 								this.novelList = data.data
-							} else if (index == 1) {
+							} else if (this.tabCur == 1) {
 								this.vipCateList = data.data
-							} else if (index == 2) {
+							} else if (this.tabCur == 2) {
 								this.videoList = data.data
 							}
 						} else {
@@ -124,15 +131,17 @@
 								icon: "none"
 							});
 						}
+						uni.stopPullDownRefresh();
+						uni.hideLoading();
 					}
 				})
 			},
 			openVipLink(link) {
 				window.open(link)
 			},
-			getCateId(type, cateId,title) {
+			getCateId(type, cateId, title) {
 				uni.navigateTo({
-					url: '/pages/list/list?type=' + type + '&cateId=' + cateId+'&title='+title
+					url: '/pages/list/list?type=' + type + '&cateId=' + cateId + '&title=' + title
 				});
 			}
 		}
@@ -200,7 +209,7 @@
 		position: relative;
 	}
 
-	.image img {
+	.image image {
 		width: 100%;
 		height: 100%;
 	}

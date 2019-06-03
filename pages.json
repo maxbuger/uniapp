@@ -31,9 +31,11 @@
 			"path": "pages/list/list",
 			"style": {
 				"navigationBarTitleText": "列表",
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh": true,
+				"onReachTopDistance": 100,
 				"onReachBottomDistance": 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
 				"app-plus": {
+					"color": "#B13531",
 					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
