@@ -70,6 +70,7 @@
 				});
 			},
 			toPlayer(params){
+				console.log(params)
 				uni.navigateTo({
 					url: 'player?play_url='+params.play_url+'&id='+params.id
 				});
@@ -207,6 +208,7 @@
 		bottom: 0;
 		height: 40upx;
 		font-size: 24upx;
+		white-space: nowrap;
 		color: #fff;
 		display: flex;
 		align-items: center;
