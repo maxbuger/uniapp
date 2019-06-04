@@ -5,9 +5,7 @@
 		</view>
 	</view>
 </template>
-<!-- <script src="../../js_sdk/flv.min.js"></script> -->
 <script>
-	import { flvjs } from '../../js_sdk/flv.min.js';
 	export default{
 		data(){
 			return{

@@ -1,20 +1,39 @@
 <template>
-	<view class="list-wrap">
+	<view class="wrap" :class="type==2?'list2':'list1'">
 		<block v-for="item in lists" :key="item.id" @click="goDetail(item)">
-			<view class="row">
-				<view class="card">
-					<!-- <image class="card-img card-list2-img" :src="item.img_src"></image> -->
-					<text class="card-num-view card-list2-num-view">{{item.img_num}}P</text>
-					<view class="card-bottm column">
-						<view class="car-title-view column">
-							<text class="card-title card-list2-title">{{item.cate_name}} </text>
-						</view>
-						<view class="car-title-view column">
-							<text class="card-title card-list2-title">{{item.title}} </text>
-						</view>
-						<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
+			<!-- <view class="column"> -->
+			<view class="card" :class="type==2?'card2':''">
+				<!-- <image class="card-img card-list2-img" :src="item.img_src"></image> -->
+				<!-- <text class="card-num-view card-list2-num-view">{{item.img_num}}P</text> -->
+				<view class="card-bottm column" v-if="type==0">
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.cate_name}} </text>
 					</view>
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.title}} </text>
+					</view>
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.createtime.slice(0,10)}}</text>
+					</view>
+					<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
 				</view>
+				<view class="card-bottm column" v-if="type==2" @click="openLink(item.link)">
+					<view class="column">
+						<image class="card-img card-list2-img" :src="item.image"></image>
+					</view>
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.cate_name}} </text>
+					</view>
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.title}} </text>
+					</view>
+					<view class="car-title-view column">
+						<text class="card-title card-list2-title">{{item.createtime.slice(0,10)}}</text>
+					</view>
+					<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
+					<web-view src="item.link"></web-view>
+				</view>
+				<!-- </view> -->
 			</view>
 		</block>
 		<text class="loadMore" v-if="page < count">加载中...</text>
@@ -91,6 +110,9 @@
 			this.getData();
 		},
 		methods: {
+			openLink(lk) {
+				window.open(lk)
+			},
 			getData() {
 				var url = ''
 				if (this.type == 0) {
@@ -192,21 +214,47 @@
 		flex: 1;
 	}
 
-	.list-wrap {
-		flex: 1;
-		width: 750upx;
+	.wrap {
+		width: 100%;
+		height: 0;
+		display: flex;
+	}
+
+	.list1 {
 		flex-direction: column;
 	}
 
-	.card {
-		flex: 1;
+	.list2 {
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.card2 {
+		width: 46%;
+		height: 360upx;
 		margin: 5px !important;
 	}
 
 	.card-bottm {
 		justify-content: flex-start !important;
 	}
+
 	.car-title-view {
+		padding: 5upx 0 !important;
+		text-indent: 0.5em;
 		width: 100%;
+	}
+
+	.column {
+		width: 100% !important;
+	}
+
+	.card-list2-img {
+		width: 100% !important;
+		height: 200upx !important;
+	}
+
+	.card-list2-img>div {
+		padding: 4upx;
 	}
 </style>
