@@ -1,24 +1,28 @@
 <template>
 	<view class="container">
-		<view class="videobox" id="">
+		<view class="videobox">
 			<video id="videoElement"></video>
 		</view>
 	</view>
 </template>
 <script>
-	export default{
-		data(){
-			return{
+	var flvjs = require("../../js_sdk/flv.min.js");
+	export default {
+		data() {
+			return {
 				play_url: ''
 			}
 		},
-		onLoad:function(option){
+		onLoad(option) {
+			console.log(option)
 			this.play_url = option.play_url
+		},
+		onReady() {
 			this.playVideo()
 		},
-		methods:{
-			playVideo(){
-				 if (flvjs.isSupported()) {
+		methods: {
+			playVideo() {
+				if (flvjs.isSupported()) {
 					var videoElement = document.getElementById('videoElement');
 					var flvPlayer = flvjs.createPlayer({
 						type: 'flv',
@@ -28,14 +32,13 @@
 					flvPlayer.load();
 					flvPlayer.play();
 				}
-				
 			}
 		}
 	}
 </script>
 
 <style>
-	#videoElement{
+	#videoElement {
 		width: 750upx;
 		height: 100%;
 	}
