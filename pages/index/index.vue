@@ -68,10 +68,13 @@
 			this.getDev()
 			this.getLive()
 		},
+		onPullDownRefresh() {
+			this.getLive()
+		},
 		methods: {
 			getDev() {
 				uni.request({
-					url: this.$serverUrl + '/mobile/index/index', //仅为示例，并非真实接口地址。
+					url: this.$serverUrl + '/mobile/index/index',
 					method: 'GET',
 					success: (res) => {
 						console.log(res.data)
@@ -86,7 +89,7 @@
 			},
 			getLive() {
 				uni.request({
-					url: this.$serverUrl + '/mobile/Live/index', //仅为示例，并非真实接口地址。
+					url: this.$serverUrl + '/mobile/Live/index',
 					method: 'POST',
 					success: (res) => {
 						console.log(res.data)
@@ -98,13 +101,16 @@
 						}
 					}
 				});
+				setTimeout(() => {
+					uni.stopPullDownRefresh()
+				}, 500)
 			},
 			toDevLink(url) {
-				window.location.href=url
+				window.location.href = url
 			},
-			toLive(params){
+			toLive(params) {
 				uni.navigateTo({
-					url: 'index_detail?title='+params.title+'&name='+params.name+'&img='+params.img
+					url: 'index_detail?title=' + params.title + '&name=' + params.name + '&img=' + params.img
 				});
 			}
 		}
@@ -114,6 +120,8 @@
 <style>
 	.container {
 		display: flex;
+		overflow: hidden;
+		max-height: 100vh;
 		flex-direction: column;
 		background: #fff;
 	}
