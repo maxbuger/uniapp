@@ -31,7 +31,7 @@
 						<text class="card-title card-list2-title">{{item.createtime.slice(0,10)}}</text>
 					</view>
 					<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
-					<web-view src="item.link"></web-view>
+					<!-- <web-view src="item.link"></web-view> -->
 				</view>
 				<!-- </view> -->
 			</view>

@@ -28,7 +28,7 @@
 	width: 710upx;
 	margin: 20upx 20upx 20upx 20upx;
 	border-radius: 10upx;
-	overflow: hidden;
+	/* overflow: hidden; */
 	flex-direction: column;
 	background-color: #FFFFFF;
 }

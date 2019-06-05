@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="videobox">
-			<video id="videoElement"></video>
+			<video id="videoElement" :src="play_url" muted></video>
 		</view>
 	</view>
 </template>
@@ -26,11 +26,24 @@
 					var videoElement = document.getElementById('videoElement');
 					var flvPlayer = flvjs.createPlayer({
 						type: 'flv',
-						url: this.play_url
+						cors: true,
+						isLive: true,
+						url: this.play_url 
 					});
 					flvPlayer.attachMediaElement(videoElement);
 					flvPlayer.load();
-					flvPlayer.play();
+					// flvPlayer.on(flvjs.Events.METADATA_ARRIVED, (e) => {
+					// 	console.log(e)
+					// setTimeout(() => {
+					// 	var playPromise = flvPlayer.play();
+					// 	if (playPromise !== undefined) {
+					// 		playPromise.then(_ => {
+					// 				flvPlayer.play();
+					// 			})
+					// 			.catch(error => {});
+					// 	}
+					// }, 1000)
+					// });
 				}
 			}
 		}
@@ -40,6 +53,5 @@
 <style>
 	#videoElement {
 		width: 750upx;
-		height: 100%;
 	}
 </style>
