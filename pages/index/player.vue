@@ -1,12 +1,14 @@
 <template>
 	<view class="container">
 		<view class="videobox">
-			<video id="videoElement" :src="play_url" muted></video>
+			<video id="videoElement"></video>
 		</view>
 	</view>
 </template>
 <script>
-	var flvjs = require("../../js_sdk/flv.min.js");
+	var ChimeePlayer = require('../../js_sdk/chimee/chimee-mobile-player.browser.js')
+	var Flv = require('../../js_sdk/chimee/index.min.js')
+
 	export default {
 		data() {
 			return {
@@ -22,36 +24,33 @@
 		},
 		methods: {
 			playVideo() {
-				if (flvjs.isSupported()) {
-					var videoElement = document.getElementById('videoElement');
-					var flvPlayer = flvjs.createPlayer({
-						type: 'flv',
-						cors: true,
-						isLive: true,
-						url: this.play_url 
-					});
-					flvPlayer.attachMediaElement(videoElement);
-					flvPlayer.load();
-					// flvPlayer.on(flvjs.Events.METADATA_ARRIVED, (e) => {
-					// 	console.log(e)
-					// setTimeout(() => {
-					// 	var playPromise = flvPlayer.play();
-					// 	if (playPromise !== undefined) {
-					// 		playPromise.then(_ => {
-					// 				flvPlayer.play();
-					// 			})
-					// 			.catch(error => {});
-					// 	}
-					// }, 1000)
-					// });
-				}
+				new ChimeePlayer({
+					wrapper: '#videoElement', // video dom容器
+					src: this.play_url,
+					box: 'flv',
+					kernels: {
+						flv: Flv
+					 },
+					autoplay: true,
+					controls: true,
+					playsInline: true,
+					preload: true,
+					x5VideoPlayerFullscreen: true,
+					x5VideoOrientation: true,
+					xWebkitAirplay: true,
+					muted: true
+				});
 			}
 		}
 	}
 </script>
-
 <style>
-	#videoElement {
+	@import url("../../js_sdk/chimee/chimee-mobile-player.browser.css");
+</style>
+<style>
+	#videoElement,
+	#flvTest {
 		width: 750upx;
+		height: 100vh;
 	}
 </style>
