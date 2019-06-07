@@ -10,7 +10,7 @@
 			console.log('App Hide')
 		},
 		onReady() {
-			this.startAdv()
+			// this.startAdv()
 		},
 		methods: {
 			// /mobile/index/startAdv
