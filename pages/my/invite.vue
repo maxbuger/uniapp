@@ -49,7 +49,11 @@
 				});
 			},
 			downloadUrl(url) {
-				window.open(url)
+				if (plus) {
+					plus.runtime.openURL(url);
+				} else {
+					window.open(url);
+				}
 			}
 		}
 	}

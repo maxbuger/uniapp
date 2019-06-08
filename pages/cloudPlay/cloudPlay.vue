@@ -136,8 +136,12 @@
 					}
 				})
 			},
-			openVipLink(link) {
-				window.open(link)
+			openVipLink(url) {
+				if (plus) {
+					plus.runtime.openURL(url);
+				} else {
+					window.open(url);
+				}
 			},
 			getCateId(type, cateId, title) {
 				uni.navigateTo({

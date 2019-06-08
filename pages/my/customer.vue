@@ -8,10 +8,10 @@
 		</view>
 		<view class="center-list">
 			<view class="center-list-item list-item">
-				<button type="default" class="login" hover-class="hover" @click="navito(info.forever_url)">永久VIP</button>
+				<button type="default" class="login" hover-class="hover" @click="openLink(info.forever_url)">永久VIP</button>
 			</view>
 			<view class="center-list-item list-item">
-				<button type="default" class="login" hover-class="hover" @click="navito(info.year_url)">年度VIP</button>
+				<button type="default" class="login" hover-class="hover" @click="openLink(info.year_url)">年度VIP</button>
 			</view>
 			<view class="center-list-item list-item">
 				<button type="default" class="login" hover-class="hover" :src="info.season_url">季节VIP</button>
@@ -60,8 +60,12 @@
 					}
 				});
 			},
-			navito(url) {
-				window.open(url)
+			openLink(url) {
+				if (plus) {
+					plus.runtime.openURL(url);
+				} else {
+					window.open(url);
+				}
 			}
 		}
 	}

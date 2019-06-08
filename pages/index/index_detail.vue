@@ -47,7 +47,6 @@
 			this.liveName = option.name
 			this.liveTitle = option.title
 			this.headPic = option.img
-			console.log(this.headPic)
 			uni.setNavigationBarTitle({
 				title: option.title
 			});
@@ -70,7 +69,6 @@
 				});
 			},
 			toPlayer(params){
-				console.log(params)
 				uni.navigateTo({
 					url: 'player?play_url='+params.play_url+'&id='+params.id
 				});

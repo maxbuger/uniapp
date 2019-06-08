@@ -92,7 +92,6 @@
 					url: this.$serverUrl + '/mobile/Live/index',
 					method: 'POST',
 					success: (res) => {
-						console.log(res.data)
 						if (res.data.code === 0) {
 							this.liveList = res.data.data.lists
 							this.total = res.data.data.count
@@ -106,7 +105,11 @@
 				}, 500)
 			},
 			toDevLink(url) {
-				window.location.href = url
+				if (plus) {
+					plus.runtime.openURL(url);
+				} else {
+					window.open(url);
+				}
 			},
 			toLive(params) {
 				uni.navigateTo({

@@ -102,7 +102,6 @@
 			this.getData();
 		},
 		onReachBottom() {
-			console.log('上拉加载刷新');
 			if (this.page > this.count) {
 				this.loadMoreText = '没有更多了'
 				return;
@@ -110,8 +109,12 @@
 			this.getData();
 		},
 		methods: {
-			openLink(lk) {
-				window.open(lk)
+			openLink(url) {
+				if (plus) {
+					plus.runtime.openURL(url);
+				} else {
+					window.open(url);
+				}
 			},
 			getData() {
 				var url = ''

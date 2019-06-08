@@ -117,13 +117,13 @@
 				}
 			}
 		},
-		{
-			"path": "pages/tag/tag",
-			"style": {
-				"navigationBarTitleText": "分类",
-				"enablePullDownRefresh": false
-			}
-		},
+		// {
+		// 	"path": "pages/tag/tag",
+		// 	"style": {
+		// 		"navigationBarTitleText": "分类",
+		// 		"enablePullDownRefresh": false
+		// 	}
+		// },
 		{
 			"path": "pages/list/list",
 			"style": {
@@ -161,7 +161,8 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"selectedBackgroundColor": "#B13531",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/icon/home_white.png",
 				"selectedIconPath": "static/icon/home.png",

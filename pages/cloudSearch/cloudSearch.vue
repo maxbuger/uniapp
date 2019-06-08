@@ -39,13 +39,12 @@
 		},
 		methods:{
 			searchVideo() {
-				console.log(111)
 				uni.request({
 					url: 'http://javdi.com/?k='+this.keyWord+'&p='+this.page,
 					method: 'GET',
 					success: (res) => {
-						console.log(res)
-						console.log(res.data)
+						// console.log(res)
+						// console.log(res.data)
 						let setData = document.getElementById('setData');
 						setData.innerHTMl= res.data
 					}
