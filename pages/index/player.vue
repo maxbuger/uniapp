@@ -8,7 +8,6 @@
 <script>
 	var ChimeePlayer = require('../../js_sdk/chimee/chimee-mobile-player.browser.js')
 	var Flv = require('../../js_sdk/chimee/index.min.js')
-
 	export default {
 		data() {
 			return {

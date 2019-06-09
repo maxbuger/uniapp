@@ -63,15 +63,15 @@
 									var data = res.data
 									if (data.code == 0) {
 										// 保存用户信息
-										window.sessionStorage.setItem('username', data.data.username) // 用户名称
-										window.sessionStorage.setItem('token', data.data.token)
-										window.sessionStorage.setItem('uid', data.data.uid) // 用户Uid
-										window.sessionStorage.setItem('nickname_code', data.data.nickname_code)
-										window.sessionStorage.setItem('nickname', data.data.nickname) // 用户昵称
-										window.sessionStorage.setItem('end_time', data.data.end_time) // vip时间
-										window.sessionStorage.setItem('is_end', data.data.is_end) // 等于1就等于是过期了
-										window.sessionStorage.setItem('is_ever', data.data.is_ever)
-										window.sessionStorage.setItem('avatar', data.data.avatar) // 用户头像
+										uni.setStorageSync('username', data.data.username) // 用户名称
+										uni.setStorageSync('token', data.data.token)
+										uni.setStorageSync('uid', data.data.uid) // 用户Uid
+										uni.setStorageSync('nickname_code', data.data.nickname_code)
+										uni.setStorageSync('nickname', data.data.nickname) // 用户昵称
+										uni.setStorageSync('end_time', data.data.end_time) // vip时间
+										uni.setStorageSync('is_end', data.data.is_end) // 等于1就等于是过期了
+										uni.setStorageSync('is_ever', data.data.is_ever)
+										uni.setStorageSync('avatar', data.data.avatar) // 用户头像
 										uni.reLaunch({
 											url: '/pages/my/my'
 										});

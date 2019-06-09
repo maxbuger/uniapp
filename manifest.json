@@ -27,7 +27,12 @@
         "template" : "template.h5.html",
         "router" : {
             "mode" : "hash",
-            "base" : ""
+            "base" : "/demo/picture/website/"
+        }
+    },
+    "mp-toutiao" : {
+        "setting" : {
+            "urlCheck" : true
         }
     }
 }

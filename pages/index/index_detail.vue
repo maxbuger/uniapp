@@ -35,8 +35,8 @@
 
 <script>
 	export default {
-		data(){
-			return{
+		data() {
+			return {
 				liveName: '',
 				liveTitle: '',
 				total: 0,
@@ -44,6 +44,9 @@
 			}
 		},
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			uni.showLoading({
+				title: '加载中'
+			});
 			this.liveName = option.name
 			this.liveTitle = option.title
 			this.headPic = option.img
@@ -55,7 +58,7 @@
 		methods: {
 			getLiveHouse() {
 				uni.request({
-					url: this.$serverUrl + '/mobile/live1/anchors?name='+this.liveName, //仅为示例，并非真实接口地址。
+					url: this.$serverUrl + '/mobile/live1/anchors?name=' + this.liveName, //仅为示例，并非真实接口地址。
 					method: 'POST',
 					success: (res) => {
 						if (res.data.code === 0) {
@@ -65,12 +68,16 @@
 						} else {
 							console.log(res.data.msg)
 						}
+						uni.hideLoading();
+					},
+					fail: (res) => {
+						uni.hideLoading();
 					}
 				});
 			},
-			toPlayer(params){
+			toPlayer(params) {
 				uni.navigateTo({
-					url: 'player?play_url='+params.play_url+'&id='+params.id
+					url: 'player?play_url=' + params.play_url + '&id=' + params.id
 				});
 			}
 		}
@@ -78,7 +85,7 @@
 </script>
 
 <style>
-	.container{
+	.container {
 		/* display: flex; */
 		/* min-height: 100%; */
 		width: 750upx;
@@ -86,7 +93,8 @@
 		padding: 20upx;
 		box-sizing: border-box;
 	}
-	.info{
+
+	.info {
 		width: 100%;
 		box-sizing: border-box;
 		padding: 0 20upx;
@@ -96,7 +104,8 @@
 		background: url(../../static/icon/banner.png) no-repeat center center;
 		background-size: 100% 100%;
 	}
-	.info_l{
+
+	.info_l {
 		height: 120upx;
 		width: 120upx;
 		border-radius: 50%;
@@ -104,15 +113,18 @@
 		overflow: hidden;
 		background: #007AFF;
 	}
-	.info_l img{
+
+	.info_l img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
-	.info_r{
+
+	.info_r {
 		width: 540upx;
 	}
-	.info_rTop{
+
+	.info_rTop {
 		display: flex;
 		/* height: 60upx; */
 		align-items: baseline;
@@ -122,19 +134,23 @@
 		margin-bottom: 10upx;
 		padding-bottom: 10upx;
 	}
-	.liveTitle{
+
+	.liveTitle {
 		font-size: 32upx;
 		margin-right: 10upx;
 	}
-	.ptai{
+
+	.ptai {
 		margin-right: 10upx;
 	}
-	.info_tips{
+
+	.info_tips {
 		font-size: 20upx;
 		color: #fff;
 		/* white-space:normal; */
 	}
-	.numBox{
+
+	.numBox {
 		display: flex;
 		align-items: center;
 		padding: 4upx 20upx;
@@ -143,41 +159,48 @@
 		border-radius: 20upx;
 		background-color: #fff;
 	}
-	.numBoxIco{
+
+	.numBoxIco {
 		height: 30upx;
 		width: 30upx;
 		background: url(../../static/icon/video_black.png) no-repeat center center;
 		background-size: 100% 100%;
 		margin-right: 10upx;
 	}
-	.videoList{
+
+	.videoList {
 		width: 710upx;
 		padding: 20upx 0;
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.vItemBox{
+
+	.vItemBox {
 		width: 355upx;
 		padding-right: 10upx;
 		box-sizing: border-box;
 	}
-	.vItem{
+
+	.vItem {
 		position: relative;
 		height: 280upx;
 		margin-bottom: 20upx;
 		border-radius: 15upx;
 		overflow: hidden;
 	}
-	.vItemBox:nth-child(2n){
+
+	.vItemBox:nth-child(2n) {
 		padding-right: 0upx;
 		padding-left: 10upx;
 	}
-	.vItem img{
+
+	.vItem img {
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
 	}
-	.pNum{
+
+	.pNum {
 		position: absolute;
 		top: 15upx;
 		right: 15upx;
@@ -185,21 +208,24 @@
 		height: 40upx;
 		display: flex;
 		align-items: center;
-		background-color: rgba(0,0,0,0.2);
+		background-color: rgba(0, 0, 0, 0.2);
 		border-radius: 20upx;
 	}
-	.pIco{
+
+	.pIco {
 		height: 40upx;
 		width: 40upx;
 		background: url(../../static/icon/we.png) no-repeat center center;
 		background-size: 100% 100%;
 		margin-right: 10upx;
 	}
-	.pTotal{
+
+	.pTotal {
 		font-size: 20upx;
 		color: #fff;
 	}
-	.pDes{
+
+	.pDes {
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -210,7 +236,7 @@
 		color: #fff;
 		display: flex;
 		align-items: center;
-		background-color: rgba(0,0,0,0.2);
+		background-color: rgba(0, 0, 0, 0.2);
 		padding: 0 15upx;
 	}
 </style>

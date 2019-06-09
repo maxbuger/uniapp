@@ -36,8 +36,8 @@
 								url: this.$serverUrl + '/mobile/card/recharge',
 								method: 'POST',
 								header: {
-									token: window.sessionStorage.getItem('token'),
-									uid: window.sessionStorage.getItem('uid')
+									token: uni.getStorageSync('token'),
+									uid: uni.getStorageSync('uid')
 								},
 								data: params,
 								success: (res) => {

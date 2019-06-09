@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="tjList_title">搜索推荐</view>
 		<view class="tjList">
-			<view class="tjList_item" v-for="(item,index) in tjList" :key="index">{{item}}</view>
+			<view class="tjList_item" v-for="(item,index) in tjList" :key="index" @click="searchVideo(item)">{{item}}</view>
 		</view>
 		<view class="history">
 			<view class="historyTitle">
@@ -16,41 +16,43 @@
 				<view class="tjList_item" v-for="(item,index) in historyList" :key="index">{{item}}</view>
 			</view>
 		</view>
+		<iframe :src="iframeUrl" frameborder="0"></iframe>
 	</view>
 </template>
 
 <script>
-	export default{
-		data(){
-			return{
-				keyWord: '学生',
+	export default {
+		data() {
+			return {
+				keyWord: '',
 				page: 1,
+				iframeUrl: '',
 				historyList: [],
-				tjList:["肛交","褐发","黑人","红髮","金髮","巨屌","巨乳","巨臀","口交","拉丁裔","辣妈","美臀","男同","女同","胖女","喷出","群交","人妖","少女","射颜","摄像头","双性恋","丝袜","涂油","亚洲的","业余","异族","印度的","中出","自慰"]
+				tjList: ["肛交", "褐发", "黑人", "红髮", "金髮", "巨屌", "巨乳", "巨臀", "口交", "拉丁裔", "辣妈", "美臀", "男同", "女同", "胖女", "喷出", "群交",
+					"人妖", "少女", "射颜", "摄像头", "双性恋", "丝袜", "涂油", "亚洲的", "业余", "异族", "印度的", "中出", "自慰"
+				]
 			}
 		},
-		onLoad(){
+		onLoad() {
 			this.searchVideo()
 		},
-		onNavigationBarSearchInputConfirmed(option){
-			if(this.historyList.indexOf(option.text)===-1){
-				this.historyList.push(option.text)
-			}
+		onNavigationBarSearchInputConfirmed(option) {
+			this.searchVideo(option.text)
 		},
-		methods:{
-			searchVideo() {
+		methods: {
+			searchVideo(keyWord) {
 				uni.request({
-					url: 'http://javdi.com/?k='+this.keyWord+'&p='+this.page,
+					url: 'http://javdi.com/?k=' + keyWord + '&p=' + this.page,
 					method: 'GET',
 					success: (res) => {
-						// console.log(res)
-						// console.log(res.data)
-						let setData = document.getElementById('setData');
-						setData.innerHTMl= res.data
+						this.iframeUrl = res.data
+						if (this.historyList.indexOf(keyWord) === -1) {
+							this.historyList.push(keyWord)
+						}
 					}
 				});
 			},
-			clear(){
+			clear() {
 				this.historyList = []
 			}
 		}
@@ -58,27 +60,31 @@
 </script>
 
 <style>
-	#setData{
+	#setData {
 		/* display: none; */
 	}
-	.container{
+
+	.container {
 		width: 750upx;
 		box-sizing: border-box;
 		padding: 0 20upx;
 		background: #fff;
 	}
-	.tjList{
+
+	.tjList {
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.tjList_title{
+
+	.tjList_title {
 		height: 60upx;
 		color: #666;
 		display: flex;
 		align-items: center;
 		font-size: 24upx;
 	}
-	.tjList_item{
+
+	.tjList_item {
 		font-size: 24upx;
 		padding: 5upx 15upx;
 		color: #666;
@@ -89,7 +95,8 @@
 		margin-right: 10upx;
 		margin-bottom: 10upx;
 	}
-	.historyTitle{
+
+	.historyTitle {
 		display: flex;
 		height: 60upx;
 		font-size: 24upx;
@@ -97,11 +104,13 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-	.historyTitle_r{
+
+	.historyTitle_r {
 		display: flex;
 		align-items: center;
 	}
-	.deleteIco{
+
+	.deleteIco {
 		height: 30upx;
 		margin-right: 10upx;
 		width: 30upx;

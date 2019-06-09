@@ -32,8 +32,8 @@
 					url: this.$serverUrl + '/mobile/user/invite',
 					method: 'POST',
 					header: {
-						token: window.sessionStorage.getItem('token'),
-						uid: window.sessionStorage.getItem('uid')
+						token: uni.getStorageSync('token'),
+						uid: uni.getStorageSync('uid')
 					},
 					success: (res) => {
 						var data = res.data

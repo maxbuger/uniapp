@@ -1,0 +1,1 @@
+<view class="container" bind:__l="__l"><view class="videobox"><video id="videoElement"></video></view></view>

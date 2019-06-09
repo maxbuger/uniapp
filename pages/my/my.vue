@@ -1,7 +1,7 @@
 <template>
 	<view class="center">
 		<view class="logo" @click="goLogin" :hover-class="!nickname ? 'logo-hover' : ''">
-			<image class="logo-img" :src="avatar ? avatar :avatarUrl"></image>
+			<image class="logo-img" :src="avatar?avatar:'../../static/logo.png'"></image>
 			<view class="logo-title">
 				<text class="uer-name">Hi，{{nickname ? nickname : '您未登录'}}</text>
 				<text class="go-login navigat-arrow" v-if="!nickname">&#xe65e;</text>
@@ -60,22 +60,21 @@
 	export default {
 		data() {
 			return {
-				nickname: window.sessionStorage.getItem('nickname'),
-				avatar: window.sessionStorage.getItem('avatar'),
+				nickname: uni.getStorageSync('nickname'),
+				avatar: '',
 				serverPost: null,
-				isEnd: window.sessionStorage.getItem('is_end'), // 等于1过期
+				isEnd: uni.getStorageSync('is_end'), // 等于1过期
 				vipTime: '',
-				providerList: [],
-				avatarUrl: '/static/logo.png',
+				providerList: []
 			}
 		},
 		onLoad(e) {
-			if (window.sessionStorage.getItem('avatar')) {
-				this.avatar = this.$serverUrl + window.sessionStorage.getItem('avatar')
+			if (uni.getStorageSync('avatar')) {
+				this.avatar = this.$serverUrl + uni.getStorageSync('avatar')
 			}
 			// 处理vip时间
-			if (window.sessionStorage.getItem('end_time')) {
-				this.vipTime = this.timetrans(Number(window.sessionStorage.getItem('end_time')))
+			if (uni.getStorageSync('end_time')) {
+				this.vipTime = this.timetrans(Number(uni.getStorageSync('end_time')))
 			}
 			// #ifdef APP-PLUS
 			uni.getProvider({

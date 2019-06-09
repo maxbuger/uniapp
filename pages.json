@@ -1,31 +1,32 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "超能聚合",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/index/index_detail",
 			"style": {
 				"navigationBarTitleText": "直播间",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/index/player",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "直播",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/cloudPlay/cloudPlay",
 			"style": {
 				"navigationBarTitleText": "云播",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -34,6 +35,7 @@
 				"navigationBarTitleText": "none",
 				"enablePullDownRefresh": true,
 				"app-plus":{
+					"plugins": {},
 					"titleNView":{
 						"searchInput":{
 							"align": "left",
@@ -43,10 +45,10 @@
 							"backgroundColor": "#f1f1f1"
 							}
 					}
-					
 				}
 			}
-		}, {
+		}, 
+		{
 			"path": "pages/list/list",
 			"style": {
 				"navigationBarTitleText": "列表",
@@ -54,6 +56,7 @@
 				"onReachTopDistance": 100,
 				"onReachBottomDistance": 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
 				"app-plus": {
+					"plugins": {},
 					"color": "#B13531",
 					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
@@ -63,14 +66,14 @@
 			"path": "pages/entertainment/entertainment",
 			"style": {
 				"navigationBarTitleText": "娱乐",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/my/my",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"navigationStyle": "custom"
 			}
 		},
@@ -101,6 +104,7 @@
 				"navigationBarBackgroundColor": "#000000",
 				"backgroundColor": "#000000",
 				"app-plus": {
+					"plugins": {},
 					"bounce": "none",
 					"titleNView": {
 						"buttons": [{
@@ -117,13 +121,6 @@
 				}
 			}
 		},
-		// {
-		// 	"path": "pages/tag/tag",
-		// 	"style": {
-		// 		"navigationBarTitleText": "分类",
-		// 		"enablePullDownRefresh": false
-		// 	}
-		// },
 		{
 			"path": "pages/list/list",
 			"style": {
@@ -164,30 +161,35 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
+				"openType": "switchTab",
 				"iconPath": "static/icon/home_white.png",
 				"selectedIconPath": "static/icon/home.png",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/cloudPlay/cloudPlay",
+				"openType": "switchTab",
 				"iconPath": "static/icon/play_white.png",
 				"selectedIconPath": "static/icon/play.png",
 				"text": "云播"
 			},
 			{
 				"pagePath": "pages/cloudSearch/cloudSearch",
+				"openType": "switchTab",
 				"iconPath": "static/icon/search_white.png",
 				"selectedIconPath": "static/icon/search.png",
 				"text": "云搜"
 			},
 			{
 				"pagePath": "pages/entertainment/entertainment",
+				"openType": "switchTab",
 				"iconPath": "static/icon/yule_white.png",
 				"selectedIconPath": "static/icon/yule.png",
 				"text": "娱乐"
 			},
 			{
 				"pagePath": "pages/my/my",
+				"openType": "switchTab",
 				"iconPath": "static/icon/my_white.png",
 				"selectedIconPath": "static/icon/my.png",
 				"text": "我的"
