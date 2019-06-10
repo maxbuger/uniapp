@@ -142,9 +142,9 @@
 			},
 			// #endif
 			openLink() {
-				if (plus) {
+				try{
 					plus.runtime.openURL(this.sourceLink);
-				} else {
+				}catch(e){
 					window.open(this.sourceLink);
 				}
 			}

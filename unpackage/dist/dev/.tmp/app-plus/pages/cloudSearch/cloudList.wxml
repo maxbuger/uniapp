@@ -1,0 +1,1 @@
+<view class="wrap" bind:__l="__l"><block wx:for="{{list}}" wx:for-item="item" wx:for-index="index"><view data-event-opts="{{[['tap',[['openLink',['$event']]]]]}}" class="content" bindtap="__e"><rich-text nodes="{{item}}"></rich-text></view></block></view>

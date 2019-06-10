@@ -1,0 +1,79 @@
+
+#setData {
+	/* display: none; */
+}
+.container {
+	width: 750rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 0 20rpx;
+	background: #fff;
+}
+.tjList {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.tjList_title {
+	height: 60rpx;
+	color: #666;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	font-size: 24rpx;
+}
+.tjList_item {
+	font-size: 24rpx;
+	padding: 5rpx 15rpx;
+	color: #666;
+	border-radius: 5rpx;
+	border: 1px solid #e5e5e5;
+	text-align: center;
+	color: #333;
+	margin-right: 10rpx;
+	margin-bottom: 10rpx;
+}
+.historyTitle {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	height: 60rpx;
+	font-size: 24rpx;
+	color: #666;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+}
+.historyTitle_r {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.deleteIco {
+	height: 30rpx;
+	margin-right: 10rpx;
+	width: 30rpx;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4T+2Uy23DMAyGSdnw2SM4G2SDuht4gzqARfiYDdpukLNlIOoG3SDtBu0GHSFnv1gQkAvVsZP03OgkieIPPsQPYWYRUcbMe0SM5+xyx8wbY4yd2nHOQWv9BgAJIp44OLEcAL6MMemJYFmWSd/3+4lh7c4fCxHO2oMg2GCe53EURVvn+AgAnwDwupSqf8/MKSLeAcCLRNw0ze5XykTEwzDc13UtKV9cRVGkSqmD77MoSERHZt5K4bXWO6mpMSbTWku6h7ZtV2EYrv8iyADwXFXVk2sSSBP8qCSFmyCca8qthvAPvs3P6BGRZeZYRm+cFKXUquu65OpJEQpZa48jIfzzuL8KDg5dSxycEkhAkZ2jjRD64SK3vAfM/O6T+xs5yMqsI/8aswAAAABJRU5ErkJggg==) no-repeat center center;
+	background-size: 100% 100%;
+}
+

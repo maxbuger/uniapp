@@ -14,10 +14,10 @@
 				<button type="default" class="login" hover-class="hover" @click="openLink(info.year_url)">年度VIP</button>
 			</view>
 			<view class="center-list-item list-item">
-				<button type="default" class="login" hover-class="hover" :src="info.season_url">季节VIP</button>
+				<button type="default" class="login" hover-class="hover" @click="openLink(info.season_url)">季节VIP</button>
 			</view>
 			<view class="center-list-item list-item">
-				<button type="default" class="login" hover-class="hover" :src="info.month_url">月度VIP</button>
+				<button type="default" class="login" hover-class="hover" @click="openLink(info.month_url)">月度VIP</button>
 			</view>
 		</view>
 		<view class="center-list">
@@ -61,9 +61,9 @@
 				});
 			},
 			openLink(url) {
-				if (plus) {
+				try{
 					plus.runtime.openURL(url);
-				} else {
+				}catch(e){
 					window.open(url);
 				}
 			}

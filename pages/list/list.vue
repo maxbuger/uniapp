@@ -1,10 +1,7 @@
 <template>
 	<view class="wrap" :class="type==2?'list2':'list1'">
-		<block v-for="item in lists" :key="item.id" @click="goDetail(item)">
-			<!-- <view class="column"> -->
-			<view class="card" :class="type==2?'card2':''">
-				<!-- <image class="card-img card-list2-img" :src="item.img_src"></image> -->
-				<!-- <text class="card-num-view card-list2-num-view">{{item.img_num}}P</text> -->
+		<block v-for="(item, key) in lists" @click="goDetail(item)" :key="key">
+			<view class="card" :class="type==2?'card2':'card1'">
 				<view class="card-bottm column" v-if="type==0">
 					<view class="car-title-view column">
 						<text class="card-title card-list2-title">{{item.cate_name}} </text>
@@ -12,10 +9,6 @@
 					<view class="car-title-view column">
 						<text class="card-title card-list2-title">{{item.title}} </text>
 					</view>
-					<view class="car-title-view column">
-						<text class="card-title card-list2-title">{{item.createtime.slice(0,10)}}</text>
-					</view>
-					<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
 				</view>
 				<view class="card-bottm column" v-if="type==2" @click="openLink(item.link)">
 					<view class="column">
@@ -27,16 +20,10 @@
 					<view class="car-title-view column">
 						<text class="card-title card-list2-title">{{item.title}} </text>
 					</view>
-					<view class="car-title-view column">
-						<text class="card-title card-list2-title">{{item.createtime.slice(0,10)}}</text>
-					</view>
-					<!-- <view @click.stop="share(item)" class="card-share-view"></view> -->
-					<!-- <web-view src="item.link"></web-view> -->
 				</view>
-				<!-- </view> -->
 			</view>
+			<text class="loadMore" v-if="page < count">加载中...</text>
 		</block>
-		<text class="loadMore" v-if="page < count">加载中...</text>
 	</view>
 </template>
 
@@ -110,9 +97,9 @@
 		},
 		methods: {
 			openLink(url) {
-				if (plus) {
+				try{
 					plus.runtime.openURL(url);
-				} else {
+				}catch(e){
 					window.open(url);
 				}
 			},
@@ -124,7 +111,7 @@
 					url = '/mobile/Video/index'
 				}
 				uni.request({
-					url: this.$serverUrl + url + '?cate_id=' + this.cateId + 'page=' + (this.refreshing ? 1 : this.page) +
+					url: this.$serverUrl + url + '?cate_id=' + this.cateId + '&page=' + (this.refreshing ? 1 : this.page) +
 						'&limit=10',
 					success: (ret) => {
 						var data = ret.data.data
@@ -150,10 +137,25 @@
 								this.lists = this.lists.concat(data.lists);
 								this.page += 1;
 							}
+							this.lists = this.unique(this.lists)
 							this.page += 1;
 						}
 					}
 				});
+			},
+			unique(arr) {
+				var newArr = [];
+				var end; //end 其实就是一道卡
+				arr.sort();
+				end = arr[0];
+				newArr.push(arr[0]);
+				for (var i = 1; i < arr.length; i++) {
+					if (arr[i] != end) {
+						newArr.push(arr[i]);
+						end = arr[i]; // 更新end
+					}
+				}
+				return newArr;
 			},
 			goDetail(e) {
 				uni.navigateTo({
@@ -219,7 +221,7 @@
 
 	.wrap {
 		width: 100%;
-		height: 0;
+		padding: 10upx;
 		display: flex;
 	}
 
@@ -233,11 +235,14 @@
 	}
 
 	.card2 {
-		width: 46%;
-		height: 360upx;
-		margin: 5px !important;
+		width: 48vw;
+		height: 300upx;
+		margin-bottom: 20upx;
 	}
-
+	.card1{
+		height: 120upx;
+		margin-bottom: 20upx;
+	}
 	.card-bottm {
 		justify-content: flex-start !important;
 	}
@@ -256,8 +261,8 @@
 		width: 100% !important;
 		height: 200upx !important;
 	}
-
+/* 
 	.card-list2-img>div {
 		padding: 4upx;
-	}
+	} */
 </style>

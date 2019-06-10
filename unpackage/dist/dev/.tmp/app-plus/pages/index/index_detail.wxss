@@ -1,0 +1,177 @@
+
+.container {
+	/* display: flex; */
+	/* min-height: 100%; */
+	width: 750rpx;
+	background: #fff;
+	padding: 20rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.info {
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 0 20rpx;
+	height: 200rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	background: url(../../static/img/banner.5611131b.png) no-repeat center center;
+	background-size: 100% 100%;
+}
+.info_l {
+	height: 120rpx;
+	width: 120rpx;
+	border-radius: 50%;
+	margin-right: 10rpx;
+	overflow: hidden;
+	background: #007AFF;
+}
+.info_l ._img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	   object-fit: cover;
+}
+.info_r {
+	width: 540rpx;
+}
+.info_rTop {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	/* height: 60upx; */
+	-webkit-box-align: baseline;
+	-webkit-align-items: baseline;
+	    -ms-flex-align: baseline;
+	        align-items: baseline;
+	font-size: 24rpx;
+	border-bottom: 1px solid #fff;
+	color: #fff;
+	margin-bottom: 10rpx;
+	padding-bottom: 10rpx;
+}
+.liveTitle {
+	font-size: 32rpx;
+	margin-right: 10rpx;
+}
+.ptai {
+	margin-right: 10rpx;
+}
+.info_tips {
+	font-size: 20rpx;
+	color: #fff;
+	/* white-space:normal; */
+}
+.numBox {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	padding: 4rpx 20rpx;
+	font-size: 20rpx;
+	color: #333;
+	border-radius: 20rpx;
+	background-color: #fff;
+}
+.numBoxIco {
+	height: 30rpx;
+	width: 30rpx;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4T9WUPU7DQBCF5y0UllzEBT0cITeIpTSWf5pwAG4AN8gNwiE4Av6RGwrfAAp6uAGFW/uhibwUgOONnCbTrLSa+Xbe7puFnDhwYp6cCTAMw8D3/ftj5JN8rqrq9XfNXnKWZSuSL8cCy7LcaE0URTe61nX9MQok+Qng+sAhTdu2t6oMwBbAOs/zZhTYtu2VTR6BvpP0Aey7mwQWRXGpiXEcL40xOxFZWTBJM0B6u+cMtAVJktyJyCOAhYhckCSAWUC9J3VCMAuoDuj7fgdgOUvy8CgKUql/guSbdmudMHmHIvI1yBtzTlMUxTpN0weSW2PM5qBtpkyuk2KNrZPmeV7wY2wtHk7SF3SKruueFPDv6DkRHJPO5PtyVOOU9g3FkbgViIYPKwAAAABJRU5ErkJggg==) no-repeat center center;
+	background-size: 100% 100%;
+	margin-right: 10rpx;
+}
+.videoList {
+	width: 710rpx;
+	padding: 20rpx 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.vItemBox {
+	width: 355rpx;
+	padding-right: 10rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.vItem {
+	position: relative;
+	height: 280rpx;
+	margin-bottom: 20rpx;
+	border-radius: 15rpx;
+	overflow: hidden;
+}
+.vItemBox:nth-child(2n) {
+	padding-right: 0rpx;
+	padding-left: 10rpx;
+}
+.vItem ._img {
+	height: 100%;
+	width: 100%;
+	-o-object-fit: cover;
+	   object-fit: cover;
+}
+.pNum {
+	position: absolute;
+	top: 15rpx;
+	right: 15rpx;
+	padding: 0 20rpx;
+	height: 40rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 20rpx;
+}
+.pIco {
+	height: 40rpx;
+	width: 40rpx;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABMUlEQVQ4T9WU0VECQRBEuzPQCCQEzIAQMAOMQIxAM1AzIQRCIAPJQDJo61HD1d1xCz/8MD+3t1v7pqdn7qwbh2/M0x0Dk8wlfUhaSNpJ+rG9SbKUtLfN3llMllywb0lrLiaZSfosMCDWv7Zfx8QWcFOwff9CEt7ntg9JAK/GSlvA2D47S7JFne1tElRuWfeTtoA723g4CIC28VRJJqtoAcl+sI2Px+j5upL0JunRNutBNOewFDxJQglqn+u5xl9JX9X5w8WSkzzUuLwUjEawx7j8SXqvzvMOeEmTTtAp4+nexjZljz0Egg0L2/uaSYBd6QNgdW425U3PSy4zLqfmIIAER5VjIJsAB75MKO1mMAlgvpzjzHbA6iKZ8eViVKkk7qag6eE12LXzO/59XSutdf4Pf6KSFSpdPiwAAAAASUVORK5CYII=) no-repeat center center;
+	background-size: 100% 100%;
+	margin-right: 10rpx;
+}
+.pTotal {
+	font-size: 20rpx;
+	color: #fff;
+}
+.pDes {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 40rpx;
+	font-size: 24rpx;
+	white-space: nowrap;
+	color: #fff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 0 15rpx;
+}
+

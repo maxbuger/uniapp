@@ -49,9 +49,9 @@
 				});
 			},
 			downloadUrl(url) {
-				if (plus) {
+				try{
 					plus.runtime.openURL(url);
-				} else {
+				}catch(e){
 					window.open(url);
 				}
 			}

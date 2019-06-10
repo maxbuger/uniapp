@@ -15,7 +15,6 @@
 			}
 		},
 		onLoad(option) {
-			// console.log(option)
 			this.play_url = option.play_url
 		},
 		onReady() {

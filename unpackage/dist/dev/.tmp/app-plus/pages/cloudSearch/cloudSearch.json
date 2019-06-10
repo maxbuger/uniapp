@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "none",
+  "enablePullDownRefresh": true,
+  "plugins": {},
+  "titleNView": {
+    "searchInput": {
+      "align": "left",
+      "placeholder": "请输入查找房源信息",
+      "borderRadius": "50upx",
+      "color": "#333",
+      "backgroundColor": "#f1f1f1"
+    }
+  },
+  "usingComponents": {}
+}

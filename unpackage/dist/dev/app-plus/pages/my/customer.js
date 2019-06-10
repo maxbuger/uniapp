@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"customer { border-top: ",[0,4]," solid #e5e5e5; background-color: #ffffff; }\n.",[1],"list-item { height: auto !important; margin: ",[0,20]," 0; }\n.",[1],"item-btn { margin-right: ",[0,10],"; }\n",],undefined,{path:"./pages/my/customer.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/my/customer.wxml') } }));

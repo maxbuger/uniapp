@@ -1,30 +1,33 @@
 <template>
 	<view class="container">
-		<view class="tjList_title">搜索推荐</view>
-		<view class="tjList">
-			<view class="tjList_item" v-for="(item,index) in tjList" :key="index" @click="searchVideo(item)">{{item}}</view>
-		</view>
-		<view class="history">
-			<view class="historyTitle">
-				<view class="historyTitle_l">搜索历史</view>
-				<view class="historyTitle_r" @click="clear">
-					<view class="deleteIco"></view>
-					<text>清空</text>
+		<view>
+			<view class="tjList_title">搜索推荐</view>
+			<view class="tjList">
+				<view class="tjList_item" v-for="(item,index) in tjList" :key="index" @click="searchVideo(item)">{{item}}</view>
+			</view>
+			<view class="history">
+				<view class="historyTitle">
+					<view class="historyTitle_l">搜索历史</view>
+					<view class="historyTitle_r" @click="clear">
+						<view class="deleteIco"></view>
+						<text>清空</text>
+					</view>
+				</view>
+				<view class="tjList">
+					<view class="tjList_item" v-for="(item,index) in historyList" :key="index">{{item}}</view>
 				</view>
 			</view>
-			<view class="tjList">
-				<view class="tjList_item" v-for="(item,index) in historyList" :key="index">{{item}}</view>
-			</view>
 		</view>
-		<iframe :src="iframeUrl" frameborder="0"></iframe>
 	</view>
 </template>
 
 <script>
+	// var htmlparser = require("htmlparser2");
+	var HTMLParser = require("../../js_sdk/html-parser/html-parser.js");
 	export default {
 		data() {
 			return {
-				keyWord: '',
+				keyWord: '学生',
 				page: 1,
 				iframeUrl: '',
 				historyList: [],
@@ -32,9 +35,6 @@
 					"人妖", "少女", "射颜", "摄像头", "双性恋", "丝袜", "涂油", "亚洲的", "业余", "异族", "印度的", "中出", "自慰"
 				]
 			}
-		},
-		onLoad() {
-			this.searchVideo()
 		},
 		onNavigationBarSearchInputConfirmed(option) {
 			this.searchVideo(option.text)
@@ -45,12 +45,49 @@
 					url: 'http://javdi.com/?k=' + keyWord + '&p=' + this.page,
 					method: 'GET',
 					success: (res) => {
-						this.iframeUrl = res.data
-						if (this.historyList.indexOf(keyWord) === -1) {
+						if (res) { // 选取插件列表内层的HTML文本
+							// 数据存放
+							var pluginHtmlList = [];
+							var uniqueArr = []
+							// 获取HTML文本转DOM操作
+							var doc = new HTMLParser(res.data.toString().trim());
+							var pluginArrayDoc = doc.getElementsByClassName('X-item');
+							// 遍历每个插件对象
+							for (var i = 0; i < pluginArrayDoc.length; i++) {
+								var docS = new HTMLParser(pluginArrayDoc[i].outerHTML.toString().trim());
+								var docA = docS.getElementsByTagName('a')[0];
+								var docImg = docS.getElementsByClassName('img-reponsive')[0];
+								var obj = {
+									href: docA.attributes.href,
+									src: docImg.attributes.src,
+									alt: docImg.attributes.alt,
+								}
+								uniqueArr.push(obj)
+							}
+							pluginHtmlList = this.unique(uniqueArr)
+							uni.setStorageSync('pluginHtmlList', JSON.stringify(pluginHtmlList))
+							uni.navigateTo({
+								url: 'cloudList'
+							})
+						}
+						if (keyWord && this.historyList.indexOf(keyWord) === -1) {
 							this.historyList.push(keyWord)
 						}
 					}
 				});
+			},
+			unique(arr) {
+				if (!Array.isArray(arr)) {
+					console.log('type error!')
+					return
+				}
+				let res = []
+				for (let i = 0; i < arr.length; i++) {
+					if (res.indexOf(arr[i]) === -1) {
+						res.push(arr[i])
+					}
+				}
+				return res
 			},
 			clear() {
 				this.historyList = []

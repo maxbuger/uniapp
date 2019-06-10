@@ -1,0 +1,1 @@
+<form data-event-opts="{{[['submit',[['recharge',['$event']]]]]}}" class="loginView" bindsubmit="__e" bind:__l="__l"><view class="input-view"><input class="input" type="text" placeholder="请输入VIP续费卡密" name="cardno"/></view><view class="button-view"><button class="login" type="default" hover-class="hover" formType="submit">VIP续费</button></view></form>

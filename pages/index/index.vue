@@ -105,10 +105,10 @@
 				}, 500)
 			},
 			toDevLink(url) {
-				if (plus) {
-					plus.runtime.openURL(url);
-				} else {
-					window.open(url);
+				try{
+					plus.runtime.openURL(this.sourceLink);
+				}catch(e){
+					window.open(this.sourceLink);
 				}
 			},
 			toLive(params) {

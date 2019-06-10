@@ -47,7 +47,14 @@
 					}
 				}
 			}
-		}, 
+		},
+		{
+			"path": "pages/cloudSearch/cloudList",
+			"style": {
+				"navigationBarTitleText": "视频",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
 			"path": "pages/list/list",
 			"style": {
@@ -104,7 +111,6 @@
 				"navigationBarBackgroundColor": "#000000",
 				"backgroundColor": "#000000",
 				"app-plus": {
-					"plugins": {},
 					"bounce": "none",
 					"titleNView": {
 						"buttons": [{
@@ -161,35 +167,30 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"openType": "switchTab",
 				"iconPath": "static/icon/home_white.png",
 				"selectedIconPath": "static/icon/home.png",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/cloudPlay/cloudPlay",
-				"openType": "switchTab",
 				"iconPath": "static/icon/play_white.png",
 				"selectedIconPath": "static/icon/play.png",
 				"text": "云播"
 			},
 			{
 				"pagePath": "pages/cloudSearch/cloudSearch",
-				"openType": "switchTab",
 				"iconPath": "static/icon/search_white.png",
 				"selectedIconPath": "static/icon/search.png",
 				"text": "云搜"
 			},
 			{
 				"pagePath": "pages/entertainment/entertainment",
-				"openType": "switchTab",
 				"iconPath": "static/icon/yule_white.png",
 				"selectedIconPath": "static/icon/yule.png",
 				"text": "娱乐"
 			},
 			{
 				"pagePath": "pages/my/my",
-				"openType": "switchTab",
 				"iconPath": "static/icon/my_white.png",
 				"selectedIconPath": "static/icon/my.png",
 				"text": "我的"
